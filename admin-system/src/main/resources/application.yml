@@ -1,0 +1,92 @@
+server:
+  port: 8052
+
+logback:
+  logpath: @logback.logpath@
+  name: @artifactId@
+
+spring:
+  application:
+    name: @artifactId@
+  profiles:
+    active: dev
+  messages:
+    basename: i18n/message
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    # 不为资源文件左映射，这样就不会出现Whitelabel Error，交由@RestControllerAdvice处理统一拦截
+    add-mappings: false
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 10MB
+  data:
+    redis:
+      repositories:
+        enabled: false
+  cloud:
+    sentinel:
+      transport:
+        dashboard: @sentinel.host@:@sentinel.port@
+      log:
+        dir: @logback.logpath@/scp/
+  quartz:
+    scheduler-name: AdminScheduler
+    startup-delay: 1
+    overwrite-existing-jobs: true
+    auto-startup: true
+
+mybatis-plus:
+  global-config:
+    db-config:
+      # 主键类型
+      id-type: assign_id
+      update-strategy: ignored
+      logic-delete-field: delFlag
+  configuration:
+    # 启用缓存
+    cache-enabled: true
+    # 全局的映射器启用或禁用缓存
+    lazy-loading-enabled: true
+    # 延迟加载。当禁用时，所有关联对象都会即时加载
+    multiple-result-sets-enabled: true
+    # 开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射
+    map-underscore-to-camel-case: true
+    # 用本地缓存机制（Local Cache）防止循环引用（circular references）和加速重复嵌套查询.
+    # SESSION(默认值): 这种情况下会缓存一个会话中执行的所有查询,  STATEMENT: 本地会话仅用在语句执行上，对相同 SqlSession 的不同调用将不会共享数
+    local-cache-scope: statement
+    # 打印日志到标准输出流, 否则MyBatis Log插件无法使用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+
+
+swagger:
+  title: @project.artifactId@
+  description: @project.description@
+  version: @project.version@
+  name: XueYou
+  email: xueyoucd@gmail.com
+
+admin-config:
+  white-list:
+    - /swagger-ui.html
+    - /swagger/**
+    - /swagger-resources/**
+    - /v2/**
+    - /webjars/**
+    - /css/**
+    - /favicon.ico
+    - /monitor/**
+    - /file/tmp-download/**
+    - /api/auth/**
+    - /api/user/register
+    - /captcha/get
+    - /captcha/check
+
+aj:
+  captcha:
+    water-mark: XueYou
+    interference-options: 2
+
+

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xueyou.admin.system.mapper.DeptMapper">
+
+    <sql id="selectDeptVo">
+        select d.dept_id, d.parent_id, d.ancestors, d.dept_name, d.order_num, d.leader,d.leader_id, d.phone, d.email, d.status, d.del_flag, d.create_by, d.create_time
+        from sys_dept d
+    </sql>
+
+    <select id="selectDeptByPage" parameterType="com.xueyou.admin.system.domain.Dept" resultType="com.xueyou.admin.system.domain.Dept">
+        <include refid="selectDeptVo" />
+        where d.del_flag = '0'
+        <if test="dept.parentId != null and dept.parentId != 0">
+            AND parent_id = #{dept.parentId}
+        </if>
+        <if test="dept.deptName != null and dept.deptName != ''">
+            AND dept_name like concat('%', #{dept.deptName}, '%')
+        </if>
+        <if test="dept.status != null and dept.status != ''">
+            AND status = #{dept.status}
+        </if>
+        <!-- 数据范围过滤 -->
+        ${dept.params.dataScope}
+        order by d.order_num
+    </select>
+
+    <select id="selectDeptList" parameterType="com.xueyou.admin.system.domain.Dept" resultType="com.xueyou.admin.system.domain.Dept">
+        <include refid="selectDeptVo" />
+        where d.del_flag = '0'
+        <if test="parentId != null and parentId != 0">
+            AND parent_id = #{parentId}
+        </if>
+        <if test="deptName != null and deptName != ''">
+            AND dept_name like concat('%', #{deptName}, '%')
+        </if>
+        <if test="status != null and status != ''">
+            AND status = #{status}
+        </if>
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
+        order by d.order_num
+    </select>
+
+    <select id="selectDeptAll" parameterType="String" resultType="com.xueyou.admin.system.domain.Dept">
+        <include refid="selectDeptVo" />
+        where d.del_flag = '0'
+        <!-- 数据范围过滤 -->
+        ${dataScope}
+        order by d.order_num
+    </select>
+
+    <update id="updateDeptStatus" parameterType="com.xueyou.admin.system.domain.Dept">
+        update sys_dept
+        <set>
+            <if test="status != null and status != ''">status = #{status},</if>
+            <if test="updateBy != null and updateBy != ''">update_by = #{updateBy},</if>
+            update_time = sysdate()
+        </set>
+        where dept_id in (${ancestors})
+    </update>
+
+    <select id="selectChildrenDeptById" parameterType="Long" resultType="com.xueyou.admin.system.domain.Dept">
+        select * from sys_dept
+        <where>
+            FIND_IN_SET(#{id},ancestors)
+        </where>
+    </select>
+
+    <update id="updateDeptChildren" parameterType="java.util.List">
+        update sys_dept set ancestors =
+        <foreach collection="depts" item="item" index="index"
+                 separator=" " open="case dept_id" close="end">
+            when #{item.deptId} then #{item.ancestors}
+        </foreach>
+        where dept_id in
+        <foreach collection="depts" item="item" index="index"
+                 separator="," open="(" close=")">
+            #{item.deptId}
+        </foreach>
+    </update>
+
+    <select id="checkDeptNameUnique" resultType="com.xueyou.admin.system.domain.Dept">
+        <include refid="selectDeptVo"/>
+        where dept_name=#{deptName} and parent_id = #{parentId}
+    </select>
+
+    <select id="selectRoleDeptIds" parameterType="Long" resultType="Long">
+        select d.dept_id
+        from sys_dept d
+                 left join sys_role_dept rd on d.dept_id = rd.dept_id
+        where d.del_flag = '0' and rd.role_id = #{roleId}
+        order by d.parent_id, d.order_num
+    </select>
+
+</mapper>

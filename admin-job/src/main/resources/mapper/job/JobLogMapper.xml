@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xueyou.admin.job.mapper.JobLogMapper">
+
+    <delete id="deleteJobLogById" parameterType="long">
+        delete from sys_job_log where job_log_id = ${jobLogId}
+    </delete>
+
+    <delete id="deleteJobLogByIds" parameterType="Long">
+        delete from sys_job_log where job_log_id in
+        <foreach collection="array" item="jobLogId" open="(" separator="," close=")">
+            #{jobLogId}
+        </foreach>
+    </delete>
+
+    <update id="cleanJobLog">
+        truncate table sys_job_log
+    </update>
+
+</mapper>

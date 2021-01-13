@@ -1,0 +1,14 @@
+package ${packageName}.service;
+
+import com.xueyou.admin.common.core.service.BaseService;
+import ${packageName}.domain.${ClassName};
+
+/**
+ * ${comments} 业务层
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+public interface ${ClassName}Service extends BaseService<${ClassName}> {
+
+}

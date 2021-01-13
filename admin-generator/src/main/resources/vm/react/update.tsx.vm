@@ -1,0 +1,40 @@
+import ModalContent from '@/components/ModalPopup/ModalContent';
+import ModalFooter from '@/components/ModalPopup/ModalFooter';
+import { useSubmit } from '@/utils/page-utils';
+import { Button, Form, Input, message } from 'antd';
+import React from 'react';
+import { update${ClassName} } from './service';
+import merge from 'lodash/merge';
+
+export default function Update${ClassName}Modal({ model }: { model: ${ClassName}; }) {
+    const { loading, submitHandle } = useSubmit<${ClassName}>(data =>
+        update${ClassName}(merge({}, model, data)).then(() => {
+            message.success('修改${comments}成功');
+        }),
+    );
+
+    return (
+        <Form<${ClassName}>
+            onFinish={submitHandle}
+            initialValues={model}
+            labelCol={{ xs: { span: 24 }, sm: { span: 5 } }}
+            wrapperCol={{ xs: { span: 24 }, sm: { span: 16 } }}
+        >
+            <ModalContent>
+#foreach ($column in $columns)
+#if(!$column.superColumn && $column.columnName != $pk.columnName)
+                <Form.Item name="$column.javaField" label="$column.columnComment" rules={[{ required: true, message: '请输入$column.columnComment' }]}>
+                    <Input placeholder="请输入$column.columnComment" />
+                </Form.Item>
+#end
+#end
+            </ModalContent>
+            <ModalFooter>
+                <Button>取消</Button>
+                <Button type="primary" loading={loading} htmlType="submit">
+                    确定
+                </Button>
+            </ModalFooter>
+        </Form>
+    );
+}

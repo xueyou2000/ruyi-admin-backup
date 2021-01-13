@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xueyou.admin.system.mapper.RoleMapper">
+
+    <sql id="selectRoleContactVo">
+        select distinct r.role_id, r.role_name, r.role_key, r.role_sort, r.data_scope,
+                        r.status, r.del_flag, r.create_time, r.remark
+        from sys_role r
+                 left join sys_user_role ur on ur.role_id = r.role_id
+                 left join sys_user u on u.user_id = ur.user_id
+                 left join sys_dept d on u.dept_id = d.dept_id
+    </sql>
+
+    <sql id="selectRoleVo">
+        select r.role_id, r.role_name, r.role_key, r.role_sort, r.data_scope, r.status, r.del_flag, r.create_time, r.remark
+        from sys_role r
+    </sql>
+
+    <select id="selectRoleByPage" parameterType="com.xueyou.admin.system.domain.Role" resultType="com.xueyou.admin.system.domain.Role">
+        <include refid="selectRoleContactVo"/>
+        where r.del_flag = '0'
+        <if test="role.roleName != null and role.roleName != ''">
+            AND r.role_name like concat('%', #{role.roleName}, '%')
+        </if>
+        <if test="role.status != null and role.status != ''">
+            AND r.status = #{role.status}
+        </if>
+        <if test="role.roleKey != null and role.roleKey != ''">
+            AND r.role_key like concat('%', #{role.roleKey}, '%')
+        </if>
+        <if test="role.dataScope != null and role.dataScope != ''">
+            AND r.data_scope = #{role.dataScope}
+        </if>
+        <!-- 数据范围过滤 -->
+        ${role.params.dataScope}
+    </select>
+
+    <select id="selectRoleAll" parameterType="String" resultType="com.xueyou.admin.system.domain.Role">
+        <include refid="selectRoleContactVo"/>
+        where r.del_flag = '0'
+        <!-- 数据范围过滤 -->
+        ${dataScope}
+    </select>
+
+    <select id="selectRolesByUserId" parameterType="String" resultType="com.xueyou.admin.system.domain.Role">
+        <include refid="selectRoleContactVo"/>
+        WHERE r.del_flag = '0' and ur.user_id = #{userId}
+    </select>
+
+    <select id="selectRoleById" parameterType="Long" resultType="com.xueyou.admin.system.domain.Role">
+        <include refid="selectRoleVo"/>
+        where r.del_flag = '0' and r.role_id = #{roleId}
+    </select>
+
+    <select id="checkRoleNameUnique" parameterType="String" resultType="com.xueyou.admin.system.domain.Role">
+        <include refid="selectRoleVo"/>
+        where r.role_name=#{roleName}
+    </select>
+
+    <select id="checkRoleKeyUnique" parameterType="String" resultType="com.xueyou.admin.system.domain.Role">
+        <include refid="selectRoleVo"/>
+        where r.role_key=#{roleKey}
+    </select>
+
+</mapper>

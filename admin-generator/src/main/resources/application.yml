@@ -1,0 +1,49 @@
+server:
+  port: 80
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://@mysql.host@:@mysql.port@/my-test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      username: @mysql.username@
+      password: @mysql.password@
+
+
+mybatis-plus:
+  global-config:
+    db-config:
+      # 主键类型
+      id-type: assign_id
+      # 全局逻辑删除的实体字段名
+      logic-delete-field: delFlag
+      # 逻辑已删除值(默认为 1)
+      logic-delete-value: 1
+      # 逻辑未删除值(默认为 0)
+      logic-not-delete-value: 0
+  configuration:
+    # 启用缓存
+    cache-enabled: true
+    # 全局的映射器启用或禁用缓存
+    lazy-loading-enabled: true
+    # 延迟加载。当禁用时，所有关联对象都会即时加载
+    multiple-result-sets-enabled: true
+    # 开启自动驼峰命名规则（camel case）映射，即从经典数据库列名 A_COLUMN 到经典 Java 属性名 aColumn 的类似映射
+    map-underscore-to-camel-case: true
+    # 用本地缓存机制（Local Cache）防止循环引用（circular references）和加速重复嵌套查询.
+    # SESSION(默认值): 这种情况下会缓存一个会话中执行的所有查询,  STATEMENT: 本地会话仅用在语句执行上，对相同 SqlSession 的不同调用将不会共享数
+    local-cache-scope: statement
+    default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
+
+
+# 代码生成
+gen:
+  # 作者
+  author: xueyou
+  # 生成包路径
+  package-name: com.xueyou.admin.system
+  # 模块名称，比如 system
+  module-name: system
+  # 前缀, 比如 Sys
+  prefix: Sys

@@ -1,0 +1,40 @@
+package ${packageName}.domain;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.xueyou.admin.common.core.entity.BaseEntity;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+
+/**
+ * ${comments}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@TableName("${tableName}")
+public class ${ClassName} extends BaseEntity {
+
+    private static final long serialVersionUID = 1L;
+
+    #foreach ($column in $columns)
+    #if(!$column.superColumn)
+
+    /**
+     * $column.columnComment
+     */
+#if($column.columnName == $pk.columnName)
+    @TableId(type = IdType.ASSIGN_ID)
+#end
+    private $column.javaType $column.javaField;
+    #end
+    #end
+
+}

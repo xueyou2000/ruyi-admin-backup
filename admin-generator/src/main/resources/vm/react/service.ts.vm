@@ -1,0 +1,37 @@
+import request from '@/utils/request';
+import { toQueryBaseDto } from '@/utils/object-utils';
+
+/**
+ * 查询${comments}
+ */
+export function query${ClassName}ByPage(data?: Partial<${ClassName}> & TableQueryParams) {
+    const { pageSize, current } = data || {};
+    const queryData = toQueryBaseDto<${ClassName}, ${ClassName}Query>('${className}', data);
+
+    return request
+        .post<IResponse<IPage<${ClassName}>>>(`/${moduleName}/${className}/findByPage/${pageSize}/${current}`, {
+            data: queryData,
+        })
+        .then(res => res.res);
+}
+
+/**
+ * 删除${comments}
+ */
+export function remove${ClassName}(ids: number[]) {
+    return request.post<IResponse>(`/${moduleName}/${className}/remove`, { params: { ids } });
+}
+
+/**
+ * 新增${comments}
+ */
+export function add${ClassName}(${className}: ${ClassName}) {
+    return request.post<IResponse>(`/${moduleName}/${className}/add`, { data: ${className} });
+}
+
+/**
+ * 修改${comments}
+ */
+export function update${ClassName}(${className}: ${ClassName}) {
+    return request.post<IResponse>(`/${moduleName}/${className}/update`, { data: ${className} });
+}

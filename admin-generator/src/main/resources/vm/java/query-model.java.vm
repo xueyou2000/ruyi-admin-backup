@@ -1,0 +1,30 @@
+package ${packageName}.model.dto;
+
+import com.xueyou.admin.common.core.dto.BaseQueryDto;
+import ${packageName}.domain.${ClassName};
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
+
+
+/**
+ * ${comments}查询
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@EqualsAndHashCode(callSuper = true)
+@Data
+@ApiModel(value = "${ClassName}Query", description = "${comments}查询")
+public class ${ClassName}Query extends BaseQueryDto implements Serializable {
+
+    /**
+     * ${comments}
+     */
+    @ApiModelProperty(value = "${comments}")
+    private ${ClassName} ${className};
+
+}

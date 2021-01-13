@@ -1,0 +1,92 @@
+import HasPermission from '@/components/Authorized/HasPermission';
+import modalPopup from '@/components/ModalPopup';
+import { SuperTable } from '@/components/SuperTable';
+import { autoQuery } from '@/utils/page-utils';
+import { PlusOutlined } from '@ant-design/icons';
+import { PageContainer } from '@ant-design/pro-layout';
+import { ActionType, ProColumns } from '@ant-design/pro-table';
+import { Button, Divider, message, Modal } from 'antd';
+import React, { useRef } from 'react';
+import { query${ClassName}ByPage, remove${ClassName} } from './service';
+import Add${ClassName}Modal from './Add${ClassName}Modal';
+import Update${ClassName}Modal from './Update${ClassName}Modal';
+
+export default function ${ClassName}Query() {
+    const actionRef = useRef<ActionType>();
+
+    function handleAdd() {
+        modalPopup(<Add${ClassName}Modal />, { title: '新增${comments}' }, autoQuery(actionRef));
+    }
+
+    function handleUpdate(record: ${ClassName}) {
+        modalPopup(<Update${ClassName}Modal model={record} />, { title: '修改${comments}' }, autoQuery(actionRef));
+    }
+
+    function handleRemove(ids: number[]) {
+        Modal.confirm({
+            title: '是否删除所选${comments}?',
+            onOk: () =>
+                remove${ClassName}(ids).then(() => {
+                    message.success('删除成功!');
+                    if (actionRef.current?.clearSelected) {
+                        actionRef.current?.clearSelected();
+                    }
+                    actionRef.current?.reload();
+                }),
+        });
+    }
+
+    const columns: ProColumns<${ClassName}>[] = [
+#foreach ($column in $columns)
+#if(!$column.superColumn)
+        {
+            title: '$column.columnComment',
+            dataIndex: '$column.javaField',
+        },
+#end
+#end
+        {
+            title: '操作',
+            width: '180px',
+            dataIndex: 'action',
+            search: false,
+            render: (_, record) => (
+                <>
+                    <HasPermission authority="${moduleName}:${className}:update">
+                        <a onClick={() => handleUpdate(record)}>编辑</a>
+                        <Divider type="vertical" />
+                    </HasPermission>
+
+                    <HasPermission authority="${moduleName}:${className}:remove">
+                        <a onClick={() => handleRemove([record.${pk.javaField}])}>删除</a>
+                    </HasPermission>
+                </>
+            ),
+        },
+    ];
+
+    return (
+        <PageContainer>
+            <SuperTable<${ClassName}>
+                headerTitle="${comments}"
+                rowKey="${pk.javaField}"
+                columns={columns}
+                pagination={{ pageSize: 10 }}
+                actionRef={actionRef}
+                search={{ labelWidth: 120 }}
+                request={params =>
+                    query${ClassName}ByPage({ ...params }).then(page => {
+                        return { success: true, data: page.records, total: page.total };
+                    })
+                }
+                toolBarRender={() => [
+                    <HasPermission key="add" authority="${moduleName}:${className}:add">
+                        <Button type="primary" onClick={handleAdd}>
+                            <PlusOutlined /> 新建
+                        </Button>
+                    </HasPermission>,
+                ]}
+            ></SuperTable>
+        </PageContainer>
+    );
+}

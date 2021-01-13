@@ -1,0 +1,23 @@
+package ${packageName}.service.impl;
+
+import com.xueyou.admin.common.core.service.impl.BaseServiceImpl;
+import ${packageName}.domain.${ClassName};
+import ${packageName}.mapper.${ClassName}Mapper;
+import ${packageName}.service.${ClassName}Service;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+
+/**
+ * ${comments} 业务处理层
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+@Service
+public class ${ClassName}ServiceImpl extends BaseServiceImpl<${ClassName}Mapper, ${ClassName}> implements ${ClassName}Service {
+
+    @Resource
+    private ${ClassName}Mapper ${className}Mapper;
+
+}

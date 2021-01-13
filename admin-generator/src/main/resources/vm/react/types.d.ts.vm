@@ -1,0 +1,13 @@
+/**
+ * ${comments}
+ */
+interface ${ClassName} {
+#foreach ($column in $columns)
+    /** $column.columnComment */
+    $column.javaField: $column.tsType;
+#end
+}
+
+interface ${ClassName}Query extends QueryBase {
+    ${className}: ${ClassName};
+}
