@@ -31,28 +31,18 @@ public class FileController {
      */
     @ApiOperation(value = "临时文件下载",  httpMethod = "GET")
     @RequestMapping(value = "/tmp-download/{fileName}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    void download(@PathVariable("fileName") String fileName, HttpServletRequest request, HttpServletResponse response) throws FileNotFoundException {
-        try {
-            // 输出响应正文的输出流
-            OutputStream out;
-            // 读取本地文件的输入流
-            InputStream in;
-            // 获得本地输入流
-            File file = new File(ToolUtils.getDownloadPath() + fileName);
-            in = new FileInputStream(file);
+    void download(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+        // 读取本地文件的输入流
+        try (InputStream in = new FileInputStream(new File(ToolUtils.getDownloadPath() + fileName));
+             OutputStream out = response.getOutputStream()) {
             // 设置响应正文的MIME类型
             response.setContentType("Content-Disposition;charset=GB2312");
             response.setHeader("Content-Disposition", "attachment;" + " filename="+ new String(fileName.getBytes(), StandardCharsets.ISO_8859_1));
-            // 把本地文件发送给客户端
-            out = response.getOutputStream();
             int byteRead = 0;
             byte[] buffer = new byte[512];
             while ((byteRead = in.read(buffer)) != -1) {
                 out.write(buffer, 0, byteRead);
             }
-            in.close();
-            out.flush();
-            out.close();
         } catch (IOException e) {
             log.error("临时文件下载失败: ", e);
             throw new FileNotFoundException(fileName);
