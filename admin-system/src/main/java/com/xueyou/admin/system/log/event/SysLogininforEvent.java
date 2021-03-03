@@ -16,4 +16,13 @@ public class SysLogininforEvent extends ApplicationEvent {
         super(source);
     }
 
+    /**
+     * The object on which the Event initially occurred.
+     *
+     * @return The object on which the Event initially occurred.
+     */
+    @Override
+    public LoginInfo getSource() {
+        return (LoginInfo) super.getSource();
+    }
 }

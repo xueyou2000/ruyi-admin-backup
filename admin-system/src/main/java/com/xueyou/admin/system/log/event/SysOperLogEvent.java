@@ -18,4 +18,13 @@ public class SysOperLogEvent extends ApplicationEvent {
         super(source);
     }
 
+    /**
+     * The object on which the Event initially occurred.
+     *
+     * @return The object on which the Event initially occurred.
+     */
+    @Override
+    public OperLog getSource() {
+        return (OperLog) super.getSource();
+    }
 }

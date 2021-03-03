@@ -36,7 +36,7 @@ public class LogListener {
     @Order
     @EventListener(SysOperLogEvent.class)
     public void listenOperLog(SysOperLogEvent event) {
-        OperLog operLog = (OperLog) event.getSource();
+        OperLog operLog = event.getSource();
         operLogService.save(operLog);
         log.info("操作日志记录：{}", operLog);
     }
@@ -46,7 +46,7 @@ public class LogListener {
     @Order
     @EventListener(SysLogininforEvent.class)
     public void  listenLoginInfo(SysLogininforEvent event) {
-        LoginInfo loginInfo = (LoginInfo) event.getSource();
+        LoginInfo loginInfo = event.getSource();
         loginInfo.setLoginTime(LocalDateTime.now());
 
         loginInfoService.save(loginInfo);
