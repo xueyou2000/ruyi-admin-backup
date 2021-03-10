@@ -15,6 +15,7 @@ import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
+import org.springframework.integration.redis.util.RedisLockRegistry;
 
 /**
  * Spring Cache 的 Redis缓存配置
@@ -58,6 +59,11 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         redisStandaloneConfiguration.setPassword(RedisPassword.of(myRedisConfig.getPassword()));
         redisStandaloneConfiguration.setPort(myRedisConfig.getPort());
         return new JedisConnectionFactory(redisStandaloneConfiguration);
+    }
+
+    @Bean(destroyMethod = "destroy")
+    public RedisLockRegistry redisLockRegistry(RedisConnectionFactory redisConnectionFactory) {
+        return new RedisLockRegistry(redisConnectionFactory, "lock");
     }
 
 }

@@ -57,17 +57,17 @@
             <id>default</id>
             <properties>
                 <!-- 数据库-->
-                <mysql.host>192.168.1.25</mysql.host>
+                <mysql.host>192.168.1.26</mysql.host>
                 <mysql.port>3306</mysql.port>
                 <mysql.username>root</mysql.username>
                 <mysql.password>Yl888888</mysql.password>
 
                 <!-- sentinel-->
-                <sentinel.host>192.168.1.25</sentinel.host>
+                <sentinel.host>192.168.1.26</sentinel.host>
                 <sentinel.port>8858</sentinel.port>
 
                 <!-- redis-->
-                <redis.host>192.168.1.25</redis.host>
+                <redis.host>192.168.1.26</redis.host>
                 <redis.port>6379</redis.port>
                 <redis.password>ylzf2018</redis.password>
 
