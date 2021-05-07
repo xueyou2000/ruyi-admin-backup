@@ -88,5 +88,6 @@ aj:
   captcha:
     water-mark: XueYou
     interference-options: 2
+    cache-type: redis
 
 

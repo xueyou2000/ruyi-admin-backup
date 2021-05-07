@@ -89,7 +89,7 @@ public class TokenController {
         User user = accessTokenService.queryByToken(token);
         if (user != null) {
             sysLoginService.logout(user);
-            accessTokenService.expireToken(user.getUserId());
+            accessTokenService.expireToken(token);
         }
         return Response.ok(true);
     }

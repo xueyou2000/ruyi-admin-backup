@@ -246,7 +246,7 @@ public class UserAgentutils {
      */
     public static String getBrowserVersion(String userAgent) {
         Browser browser = getBrowser(userAgent);
-        return browser.getVersion(userAgent).toString();
+        return browser.getVersion(userAgent) == null ? "" : String.valueOf(browser.getVersion(userAgent));
     }
 
 

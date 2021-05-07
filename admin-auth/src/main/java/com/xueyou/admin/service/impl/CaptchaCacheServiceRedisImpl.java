@@ -1,9 +1,9 @@
 package com.xueyou.admin.service.impl;
 
 import com.anji.captcha.service.CaptchaCacheService;
-import com.google.auto.service.AutoService;
 import com.xueyou.admin.common.redis.util.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
 
 /**
  * Redis缓存
@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
  * <p>See: https://gitee.com/anji-plus/captcha/wikis/1.java%E5%90%8E%E7%AB%AF%E6%8E%A5%E5%85%A5-1.2.1%E7%89%88%E6%9C%AC%E5%90%8E?sort_id=2308156</p>
  */
 @Slf4j
-@AutoService(CaptchaCacheService.class)
 public class CaptchaCacheServiceRedisImpl implements CaptchaCacheService {
 
     @Override
@@ -40,6 +39,6 @@ public class CaptchaCacheServiceRedisImpl implements CaptchaCacheService {
 
     @Override
     public String type() {
-        return "admin/redis";
+        return "redis";
     }
 }
