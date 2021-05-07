@@ -119,6 +119,13 @@ public class RedisUtils {
     /**
      * 获取对象数据
      */
+    public static <T> T getJson(String key, Class<T> clazz) {
+        return get(null, key, clazz, true);
+    }
+
+    /**
+     * 获取对象数据
+     */
     public static <T> T get(String key, Class<T> clazz) {
         return get(null, key, clazz, false);
     }
@@ -162,21 +169,17 @@ public class RedisUtils {
     }
 
     /**
-     * 设置可过期对象数据
+     * 设置对象数据
      */
-    public static void setEx(Integer dbIndex, String key, Object value, boolean useJsonSerialize,Integer second) {
-        if (second == null) {
-            second = timeOutSecond;
-        }
-        setEx(dbIndex, SerializeUtils.serialize(key, DEFAULT_CHARSET),
-                useJsonSerialize ? JSON.toJSONBytes(value) : SerializeUtils.serialize(value),second);
+    public static void set(String key, Object value, boolean useJsonSerialize) {
+        set(null, key, value, useJsonSerialize);
     }
 
     /**
      * 设置对象数据
      */
-    public static void set(String key, Object value, boolean useJsonSerialize) {
-        set(null, key, value, useJsonSerialize);
+    public static void setJson(String key, Object value) {
+        set(null, key, value, true);
     }
 
     /**
@@ -188,6 +191,17 @@ public class RedisUtils {
 
 
     // ======================================= setEx
+
+    /**
+     * 设置可过期对象数据
+     */
+    public static void setEx(Integer dbIndex, String key, Object value, boolean useJsonSerialize,Integer second) {
+        if (second == null) {
+            second = timeOutSecond;
+        }
+        setEx(dbIndex, SerializeUtils.serialize(key, DEFAULT_CHARSET),
+                useJsonSerialize ? JSON.toJSONBytes(value) : SerializeUtils.serialize(value),second);
+    }
 
     /**
      * 设置可过期字节数据
@@ -214,6 +228,14 @@ public class RedisUtils {
     public static void setEx(String key, Object value, int seconds, boolean useJsonSerialize) {
         setEx(null, key, value, seconds, useJsonSerialize);
     }
+
+    /**
+     * 设置可过期对象数据
+     */
+    public static void setExJson(String key, Object value, int seconds) {
+        setEx(null, key, value, seconds, true);
+    }
+
 
     /**
      * 设置可过期对象数据(不序列化json)

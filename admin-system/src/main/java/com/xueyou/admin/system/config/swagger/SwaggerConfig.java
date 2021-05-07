@@ -5,6 +5,7 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.RestController;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.ParameterBuilder;
@@ -27,6 +28,7 @@ import java.util.List;
  * @version V1.0.0
  * @since 2020/9/25 1:43 下午
  */
+@Profile("dev")
 @Data
 @Configuration
 @EnableSwagger2

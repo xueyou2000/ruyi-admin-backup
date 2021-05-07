@@ -85,7 +85,7 @@ public class AccessTokenServiceImpl implements AccessTokenService {
     @Override
     public void expireToken(String token) {
         User user = queryByToken(token);
-        if (StringUtils.isNotBlank(token)) {
+        if (StringUtils.isNotBlank(token) && user != null) {
             RedisUtils.del(ACCESS_USERID + user.getUserId());
             RedisUtils.del(ACCESS_TOKEN + token);
         }

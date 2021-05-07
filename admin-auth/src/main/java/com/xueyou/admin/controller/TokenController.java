@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 登陆认证
@@ -83,7 +84,7 @@ public class TokenController {
      */
     @PostMapping("logout")
     @ApiOperation(value = "退出登陆",  httpMethod = "POST")
-    public Response<Boolean> logout(HttpServerRequest request) {
+    public Response<Boolean> logout(HttpServletRequest request) {
         String token = request.getHeader(Constants.AUTHORIZATION_HEAD);
         User user = accessTokenService.queryByToken(token);
         if (user != null) {
