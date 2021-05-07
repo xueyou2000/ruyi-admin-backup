@@ -88,7 +88,7 @@ public class TokenController {
         String token = request.getHeader(Constants.AUTHORIZATION_HEAD);
         User user = accessTokenService.queryByToken(token);
         if (user != null) {
-            sysLoginService.logout(user.getLoginName());
+            sysLoginService.logout(user);
             accessTokenService.expireToken(user.getUserId());
         }
         return Response.ok(true);
