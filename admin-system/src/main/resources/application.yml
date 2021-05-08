@@ -8,8 +8,8 @@ logback:
 spring:
   application:
     name: @artifactId@
-  profiles:
-    active: dev
+#  profiles:
+#    active: dev
   messages:
     basename: i18n/message
   mvc:
@@ -77,10 +77,9 @@ admin-config:
     - /webjars/**
     - /css/**
     - /favicon.ico
-    - /monitor/**
     - /file/tmp-download/**
-    - /api/auth/**
-    - /api/user/register
+    - /auth/**
+    - /user/register
     - /captcha/get
     - /captcha/check
 
@@ -89,5 +88,7 @@ aj:
     water-mark: XueYou
     interference-options: 2
     cache-type: redis
+    jigsaw: classpath:captcha-images/jigsaw
+    pic-click: classpath:captcha-images/pic-click
 
 

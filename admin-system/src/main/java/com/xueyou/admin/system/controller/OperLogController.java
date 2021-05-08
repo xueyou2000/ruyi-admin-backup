@@ -27,7 +27,7 @@ import java.util.List;
  * @date 2020/12/23
  */
 @RestController
-@RequestMapping("api/monitor/operLog")
+@RequestMapping("/monitor/operLog")
 @Api(value = "OperLogController", tags = "操作日志")
 public class OperLogController {
 

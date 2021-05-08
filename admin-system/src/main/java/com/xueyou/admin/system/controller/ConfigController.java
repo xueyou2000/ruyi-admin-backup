@@ -26,7 +26,7 @@ import java.util.Arrays;
  * @date 2020/12/25
  */
 @RestController
-@RequestMapping("api/system/config")
+@RequestMapping("/system/config")
 @Api(value = "ConfigController", tags = "系统配置")
 public class ConfigController {
 

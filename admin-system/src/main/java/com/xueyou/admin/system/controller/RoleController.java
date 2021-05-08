@@ -34,7 +34,7 @@ import java.util.Set;
  * @date 2020-12-30
  */
 @RestController
-@RequestMapping("api/system/role")
+@RequestMapping("/system/role")
 @Api(value = "RoleController", tags = "角色")
 public class RoleController {
 
@@ -112,6 +112,7 @@ public class RoleController {
     /**
      * 保存角色分配数据权限
      */
+    @SuppressWarnings("unchecked")
     @HasPermissions("system:role:update")
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PostMapping("/authDataScope")

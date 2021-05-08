@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @RestController
-@RequestMapping("api/auth")
+@RequestMapping("/auth")
 @Api(value = "TokenController", tags = "登陆认证")
 @SuppressWarnings("unchecked")
 public class TokenController {

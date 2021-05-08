@@ -36,7 +36,7 @@ import java.util.Arrays;
  * @since 2020/10/12 2:28 下午
  */
 @RestController
-@RequestMapping("api/system/user")
+@RequestMapping("/system/user")
 @Api(value = "UserController", tags = "系统用户")
 public class UserController extends BaseController {
 

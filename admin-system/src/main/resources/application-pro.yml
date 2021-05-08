@@ -1,0 +1,61 @@
+server:
+  port: 8053
+
+redis:
+  host: @redis.host@
+  port: @redis.port@
+  password: @redis.password@
+  dbIndex: 13
+  connTimeout: 4000
+  pool:
+    maxTotal: 200
+    minIdle: 10
+    maxIdle: 30
+    maxWaitMillis: 3000
+    blockWhenExhausted: true
+    testOnBorrow: false
+    testOnReturn: false
+    testWhileIdle: true
+    minEvictableIdleTimeMillis: 60000
+    timeBetweenEvictionRunsMillis: 30000
+    numTestsPerEvictionRun: 1
+    softMinEvictableIdleTimeMillis: -1
+    lifo: false
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://@mysql.host@:@mysql.port@/my-test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      username: @mysql.username@
+      password: @mysql.password@
+      # 初始连接数
+      initialSize: 5
+      # 最小连接池数量
+      minIdle: 10
+      # 最大连接池数量
+      maxActive: 20
+      # 配置获取连接等待超时的时间
+      maxWait: 60000
+      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      timeBetweenEvictionRunsMillis: 60000
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 300000
+      # 配置一个连接在池中最大生存的时间，单位是毫秒
+      maxEvictableIdleTimeMillis: 900000
+      webStatFilter:
+        enabled: true
+      statViewServlet:
+        enabled: true
+      filter:
+        stat:
+          enabled: true
+          # 慢SQL记录
+          log-slow-sql: true
+          slow-sql-millis: 1000
+          merge-sql: true
+        wall:
+          config:
+            multi-statement-allow: true
+      test-while-idle: false

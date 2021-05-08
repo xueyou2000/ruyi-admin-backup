@@ -1,0 +1,102 @@
+version: '3.7'
+
+services:
+  mysql57:
+    container_name: mysql57
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - /home/servers/docker_data/mysql/data:/var/lib/mysql
+      - /home/servers/docker_data/mysql/mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+      - /home/servers/docker_data/mysql/logs:/var/log/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=Yl888888
+    expose:
+      - "3306"
+    ports:
+      - 3306:3306
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    restart: always
+    volumes:
+      - /home:/home
+      - /home/servers/docker_data/nginx/conf/nginx.conf:/etc/nginx/nginx.conf
+      - /home/servers/docker_data/nginx/logs:/etc/nginx/logs
+      - /home/servers/docker_data/nginx/logs/nginx:/var/log/nginx
+      - /home/servers/docker_data/nginx/cert:/etc/nginx/cert
+      - /home/servers/docker_data/nginx/cert:/ssl
+      - /home/servers/docker_data/nginx/opt:/opt
+      - /etc/localtime:/etc/localtime
+      - /etc/timezone:/etc/timezone
+    expose:
+      - "80"
+    ports:
+      - 80:80
+      - 443:443
+      - 7777:7777
+      - 7090:7090
+      - 8166:8166
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    volumes:
+      - /home/servers/docker_data/redis/upf-redis:/data
+      - /etc/localtime:/etc/localtime
+    expose:
+      - "6379"
+    ports:
+      - 6379:6379
+    command: redis-server /data/6379.conf
+  zookeeper:
+    container_name: zookeeper
+    image: zookeeper:latest
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime
+    expose:
+      - "2181"
+    ports:
+      - 2181:2181
+      - 2888:2888
+      - 3888:3888
+
+  kafka:
+    container_name: kafka
+    image: wurstmeister/kafka:latest
+    restart: always
+    volumes:
+      - /etc/localtime:/etc/localtime
+    expose:
+      - "9092"
+    ports:
+      - 9092:9092
+    external_links:
+      - zookeeper
+    environment:
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_HOST_NAME=192.168.1.26
+      - KAFKA_ADVERTISED_PORT=9092
+    depends_on:
+      - zookeeper
+  # sentinel断路器,流量控制
+  # http://127.0.0.1:8858/  默认账号密码: sentinel/sentinel
+  sentinel-dashboard:
+    image: bladex/sentinel-dashboard
+    ports:
+      - 8858:8858
+    restart: always
+  xueyou-admin:
+    image: java:8
+    container_name: xueyou-admin
+    command: java -jar /home/servers/xueyou-admin/xueyou-admin.jar --spring.profiles.active
+    ports:
+      - "8053:8053"
+    expose:
+      - "8053"
+    volumes:
+      - /home/servers/xueyou-admin/:/home/servers/xueyou-admin/
+    environment:
+      TZ : 'Asia/Shanghai'

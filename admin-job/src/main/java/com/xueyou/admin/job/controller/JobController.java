@@ -29,7 +29,7 @@ import java.util.List;
  * @date 2020/12/24
  */
 @RestController
-@RequestMapping("api/monitor/job")
+@RequestMapping("/monitor/job")
 @Api(value = "JobController", tags = "定时任务")
 @SuppressWarnings("unchecked")
 public class JobController {

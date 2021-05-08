@@ -23,7 +23,7 @@ import javax.annotation.Resource;
  * @date 2020/12/24
  */
 @RestController
-@RequestMapping("api/monitor/jobLog")
+@RequestMapping("/monitor/jobLog")
 @Api(value = "JobLogController", tags = "定时任务日志")
 public class JobLogController {
 

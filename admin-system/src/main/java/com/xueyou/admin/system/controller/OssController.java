@@ -46,7 +46,7 @@ import java.util.Date;
  * @date 2020-12-28
  */
 @RestController
-@RequestMapping("api/system/oss")
+@RequestMapping("/system/oss")
 @Api(value = "OssController", tags = "文件")
 public class OssController {
 

@@ -34,7 +34,7 @@ import java.util.Set;
  */
 @Slf4j
 @RestController
-@RequestMapping("api/monitor/online")
+@RequestMapping("/monitor/online")
 @Api(value = "onlineController", tags = "在线用户")
 public class OnlineController {
 

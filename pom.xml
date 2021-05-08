@@ -78,6 +78,9 @@
 
                 <!-- 日志目录-->
                 <logback.logpath>./logs</logback.logpath>
+
+                <!-- 远程发布配置-->
+                <wagon.deploy.ip>192.168.1.26</wagon.deploy.ip>
             </properties>
         </profile>
     </profiles>
@@ -273,34 +276,19 @@
     	</dependencies>
     </dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
     <!-- 配置远程发布到私服，mvn deploy, 需要配置maven得/conf/setting.xml中 servers 部分, 参照https://www.cnblogs.com/xhq1024/p/10671395.html -->
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <name>Nexus Release Repository</name>
-            <url>${nexus-address}/repository/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <name>Team Nexus Snapshot Repository</name>
-            <url>${nexus-address}/repository/snapshots/</url>
-            <uniqueVersion>false</uniqueVersion>
-        </snapshotRepository>
-    </distributionManagement>
+<!--    <distributionManagement>-->
+<!--        <repository>-->
+<!--            <id>releases</id>-->
+<!--            <name>Nexus Release Repository</name>-->
+<!--            <url>${nexus-address}/repository/releases/</url>-->
+<!--        </repository>-->
+<!--        <snapshotRepository>-->
+<!--            <id>snapshots</id>-->
+<!--            <name>Team Nexus Snapshot Repository</name>-->
+<!--            <url>${nexus-address}/repository/snapshots/</url>-->
+<!--            <uniqueVersion>false</uniqueVersion>-->
+<!--        </snapshotRepository>-->
+<!--    </distributionManagement>-->
 
 </project>

@@ -26,7 +26,7 @@ import java.util.Arrays;
  * @date 2020/12/23
  */
 @RestController
-@RequestMapping("api/monitor/loginInfo")
+@RequestMapping("/monitor/loginInfo")
 @Api(value = "LoginInfoController", tags = "登陆日志")
 public class LoginInfoController {
 

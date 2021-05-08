@@ -31,7 +31,7 @@ import java.util.Set;
  * @date 2020-12-29
  */
 @RestController
-@RequestMapping("api/system/dept")
+@RequestMapping("/system/dept")
 @Api(value = "DeptController", tags = "部门")
 public class DeptController {
 

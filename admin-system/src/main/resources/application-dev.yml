@@ -50,7 +50,7 @@ spring:
         enabled: true
 #        # 设置白名单，不填则允许所有访问
 #        allow:
-        url-pattern: /monitor/druid/*
+        url-pattern: /sql-monitor/druid/*
       filter:
         stat:
           enabled: true

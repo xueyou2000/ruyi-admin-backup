@@ -24,7 +24,7 @@ import javax.annotation.Resource;
  * @date 2020/12/21
  */
 @RestController
-@RequestMapping("api/system/dict/type")
+@RequestMapping("/system/dict/type")
 @Api(value = "DictTypeController", tags = "字典类型")
 public class DictTypeController {
 

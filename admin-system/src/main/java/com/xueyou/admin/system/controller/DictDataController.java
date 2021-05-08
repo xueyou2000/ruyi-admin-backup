@@ -28,7 +28,7 @@ import java.util.Map;
  * @date 2020/12/21
  */
 @RestController
-@RequestMapping("api/system/dict/data")
+@RequestMapping("/system/dict/data")
 @Api(value = "DictDataController", tags = "字典数据")
 public class DictDataController {
 
