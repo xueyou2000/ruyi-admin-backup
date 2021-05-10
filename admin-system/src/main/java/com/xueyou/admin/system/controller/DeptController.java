@@ -114,7 +114,7 @@ public class DeptController {
     @PostMapping("findEnableDepts")
     public Response<List<Dept>> findEnableDepts(@RequestBody Dept dept) {
         dept.setStatus("0");
-        return Response.ok(deptService.selectDeptList(dept));
+        return Response.ok(deptService.selectRelationDeptList(dept));
     }
 
 }

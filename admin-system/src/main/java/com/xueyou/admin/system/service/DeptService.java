@@ -28,6 +28,11 @@ public interface DeptService extends BaseService<Dept> {
     List<Dept> selectDeptList(Dept dept);
 
     /**
+     * 查询关联部门
+     */
+    List<Dept> selectRelationDeptList(Dept dept);
+
+    /**
      * 查询部门列表
      */
     List<Dept> selectDeptAll();

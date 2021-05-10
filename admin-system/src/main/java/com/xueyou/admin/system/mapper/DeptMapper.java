@@ -30,6 +30,12 @@ public interface DeptMapper extends BaseMapper<Dept> {
     List<Dept> selectDeptList(Dept dept);
 
     /**
+     * 查询关联部门列表
+     * 所属部门以及以上关联部门
+     */
+    List<Dept> selectRelationDeptList(@Param("dept") Dept dept, @Param("ancestors") String ancestors);
+
+    /**
      * 查询部门列表
      */
     List<Dept> selectDeptAll(String dataScope);

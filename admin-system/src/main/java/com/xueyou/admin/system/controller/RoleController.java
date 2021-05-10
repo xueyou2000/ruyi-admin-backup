@@ -61,7 +61,6 @@ public class RoleController {
      */
     @ApiOperation(value = "查询所有角色",  httpMethod = "POST")
     @PostMapping("all")
-    @HasPermissions("system:role:view")
     public Response<List<Role>> all() {
         return Response.ok(roleService.selectRoleAll());
     }

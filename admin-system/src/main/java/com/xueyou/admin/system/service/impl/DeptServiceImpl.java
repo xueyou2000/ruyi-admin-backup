@@ -4,18 +4,24 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xueyou.admin.common.core.annotation.DataScope;
 import com.xueyou.admin.common.core.exception.BusinessException;
+import com.xueyou.admin.common.core.exception.auth.UnauthorizedException;
 import com.xueyou.admin.common.core.service.impl.BaseServiceImpl;
 import com.xueyou.admin.common.core.utils.StringUtils;
 import com.xueyou.admin.system.aspect.DataScopeAspect;
 import com.xueyou.admin.system.domain.Dept;
+import com.xueyou.admin.system.domain.User;
 import com.xueyou.admin.system.mapper.DeptMapper;
 import com.xueyou.admin.system.service.DeptService;
+import com.xueyou.admin.system.utils.UserUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * 部门 业务处理层
@@ -45,6 +51,20 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
     @DataScope(deptAlias = "d")
     public List<Dept> selectDeptList(Dept dept) {
         return deptMapper.selectDeptList(dept);
+    }
+
+    /**
+     * 查询关联部门列表
+     */
+    @Override
+    @DataScope(deptAlias = "d")
+    public List<Dept> selectRelationDeptList(Dept dept) {
+        User currentUser = UserUtils.getCurrentUser();
+        if (currentUser == null) {
+            throw new UnauthorizedException();
+        }
+        Dept currentDept = deptMapper.selectById(currentUser.getDeptId());
+        return deptMapper.selectRelationDeptList(dept, currentDept.getAncestors());
     }
 
     /**

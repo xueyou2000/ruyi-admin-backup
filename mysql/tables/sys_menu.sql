@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 公司开发
+ Source Server         : 公司开发(26)
  Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : 192.168.1.25:3306
+ Source Server Version : 50729
+ Source Host           : 192.168.1.26:3306
  Source Schema         : my-test
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 05/01/2021 09:52:10
+ Date: 10/05/2021 14:51:20
 */
 
 SET NAMES utf8mb4;
@@ -43,7 +43,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=59 DEFAULT CHARSET=utf8 COMMENT='菜单';
+) ENGINE=InnoDB AUTO_INCREMENT=64 DEFAULT CHARSET=utf8 COMMENT='菜单';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -102,6 +102,11 @@ INSERT INTO `sys_menu` VALUES (55, 'system.role.remove', NULL, 7, NULL, NULL, NU
 INSERT INTO `sys_menu` VALUES (56, 'system.dept.add', NULL, 12, NULL, NULL, NULL, 1, 'F', '0', 'system:dept:add', NULL, NULL, NULL, 'FALSE', '', '2020-12-31 15:40:19', '', '2020-12-31 15:40:19', NULL);
 INSERT INTO `sys_menu` VALUES (57, 'system.dept.update', NULL, 12, NULL, NULL, NULL, 2, 'F', '0', 'system:dept:update', NULL, NULL, NULL, 'FALSE', '', '2020-12-31 15:40:33', '', '2020-12-31 15:40:33', NULL);
 INSERT INTO `sys_menu` VALUES (58, 'system.dept.remove', NULL, 12, NULL, NULL, NULL, 3, 'F', '0', 'system:dept:remove', NULL, NULL, NULL, 'FALSE', '', '2020-12-31 15:40:51', '', '2020-12-31 15:40:51', NULL);
+INSERT INTO `sys_menu` VALUES (59, 'system.role.view', NULL, 7, '', '', '', 0, 'F', '0', 'system:role:view', '', '', '', 'FALSE', '', '2021-05-10 14:42:39', '', '2021-05-10 14:42:39', '');
+INSERT INTO `sys_menu` VALUES (60, 'system.user.view', NULL, 4, NULL, NULL, NULL, 0, 'F', '0', 'system:user:view', NULL, NULL, NULL, 'FALSE', '', '2021-05-10 14:44:02', '', '2021-05-10 14:44:02', NULL);
+INSERT INTO `sys_menu` VALUES (61, 'system.dept.view', NULL, 12, NULL, NULL, NULL, 0, 'F', '0', 'system:dept:view', NULL, NULL, NULL, 'FALSE', '', '2021-05-10 14:48:07', '', '2021-05-10 14:48:07', NULL);
+INSERT INTO `sys_menu` VALUES (62, 'system.config.view', NULL, 15, NULL, NULL, NULL, 0, 'F', '0', 'system:config:view', NULL, NULL, NULL, 'FALSE', '', '2021-05-10 14:48:50', '', '2021-05-10 14:48:50', NULL);
+INSERT INTO `sys_menu` VALUES (63, 'system.oss.view', NULL, 17, NULL, NULL, NULL, 0, 'F', '0', 'system:oss:view', NULL, NULL, NULL, 'FALSE', '', '2021-05-10 14:49:23', '', '2021-05-10 14:49:23', NULL);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -9,6 +9,7 @@ import com.xueyou.admin.common.core.utils.spring.ServletUtils;
 import com.xueyou.admin.common.redis.util.RedisUtils;
 import com.xueyou.admin.system.domain.Role;
 import com.xueyou.admin.system.domain.User;
+import com.xueyou.admin.system.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.Signature;
@@ -78,7 +79,7 @@ public class DataScopeAspect {
         if (controllerDataScope == null) {
             return;
         }
-        User currentUser = getCurrentUser();
+        User currentUser = UserUtils.getCurrentUser();
         if (currentUser != null) {
             // 超级管理员不过滤
             if (!TrueOrFalse.TRUE.equals(currentUser.getAdmin())) {
@@ -87,13 +88,6 @@ public class DataScopeAspect {
         } else {
             log.warn("数据权限拦截失败,执行对象 currentUser is null");
         }
-    }
-
-    private static User getCurrentUser() {
-        // 获取当前的用户
-        HttpServletRequest request = ServletUtils.getRequest();
-        String token = request.getHeader("token");
-        return RedisUtils.get(Constants.ACCESS_TOKEN + token, User.class);
     }
 
     /**
@@ -145,7 +139,7 @@ public class DataScopeAspect {
      * 获取数据过滤的注入sql
      */
     public static String getDataScopeFilterSql(String deptAlias, String userAlias) {
-        User currentUser = getCurrentUser();
+        User currentUser = UserUtils.getCurrentUser();
         if (currentUser != null) {
             return getDataScopeFilterSql(currentUser, deptAlias, userAlias);
         } else {
