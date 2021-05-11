@@ -51,7 +51,7 @@ public class DeptController {
     @HasPermissions("system:dept:view")
     public Response<IPage<Dept>> findByPage(@PathVariable Integer pageSize, @PathVariable Integer pageNumber, @RequestBody Dept dept) {
         Page<Dept> page = new Page<>(pageNumber, pageSize);
-        return Response.ok(deptService.selectDeptByPage(page, dept));
+        return Response.ok(deptService.selectRelationDeptList(page, dept));
     }
 
     /**

@@ -44,14 +44,43 @@
     <select id="selectRelationDeptList" resultType="com.xueyou.admin.system.domain.Dept">
         <include refid="selectDeptVo" />
         where
-            1 = 1
-            and d.del_flag = '0'
+            d.del_flag = '0'
+            <if test="dept.parentId != null and dept.parentId != 0">
+                AND d.parent_id = #{dept.parentId}
+            </if>
+            <if test="dept.deptName != null and dept.deptName != ''">
+                AND d.dept_name like concat('%', #{dept.deptName}, '%')
+            </if>
+            <if test="dept.status != null and dept.status != ''">
+                AND d.status = #{dept.status}
+            </if>
             <!-- 数据范围过滤 -->
             ${dept.params.dataScope}
             or d.dept_id in ( ${ancestors} )
         order by
             d.order_num
     </select>
+
+    <select id="selectRelationDeptByPage" resultType="com.xueyou.admin.system.domain.Dept">
+        <include refid="selectDeptVo" />
+        where
+        d.del_flag = '0'
+        <if test="dept.parentId != null and dept.parentId != 0">
+            AND d.parent_id = #{dept.parentId}
+        </if>
+        <if test="dept.deptName != null and dept.deptName != ''">
+            AND d.dept_name like concat('%', #{dept.deptName}, '%')
+        </if>
+        <if test="dept.status != null and dept.status != ''">
+            AND d.status = #{dept.status}
+        </if>
+        <!-- 数据范围过滤 -->
+        ${dept.params.dataScope}
+        or d.dept_id in ( ${ancestors} )
+        order by
+        d.order_num
+    </select>
+
 
     <select id="selectDeptAll" parameterType="String" resultType="com.xueyou.admin.system.domain.Dept">
         <include refid="selectDeptVo" />

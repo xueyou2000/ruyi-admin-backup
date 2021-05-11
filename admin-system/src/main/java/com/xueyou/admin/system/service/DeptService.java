@@ -33,6 +33,11 @@ public interface DeptService extends BaseService<Dept> {
     List<Dept> selectRelationDeptList(Dept dept);
 
     /**
+     * 分页查询关联部门
+     */
+    IPage<Dept> selectRelationDeptList(IPage<Dept> page, Dept dept);
+
+    /**
      * 查询部门列表
      */
     List<Dept> selectDeptAll();

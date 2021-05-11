@@ -3,6 +3,7 @@ package com.xueyou.admin.system.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xueyou.admin.common.core.annotation.DataScope;
+import com.xueyou.admin.common.core.enums.TrueOrFalse;
 import com.xueyou.admin.common.core.exception.BusinessException;
 import com.xueyou.admin.common.core.exception.auth.UnauthorizedException;
 import com.xueyou.admin.common.core.service.impl.BaseServiceImpl;
@@ -65,6 +66,23 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
         }
         Dept currentDept = deptMapper.selectById(currentUser.getDeptId());
         return deptMapper.selectRelationDeptList(dept, currentDept.getAncestors());
+    }
+
+    /**
+     * 分页查询关联部门
+     */
+    @Override
+    @DataScope(deptAlias = "d", paramsIndex = 1)
+    public IPage<Dept> selectRelationDeptList(IPage<Dept> page, Dept dept) {
+        User currentUser = UserUtils.getCurrentUser();
+        if (currentUser == null) {
+            throw new UnauthorizedException();
+        }
+        if (TrueOrFalse.TRUE.equals(currentUser.getAdmin())) {
+            return selectDeptByPage(page, dept);
+        }
+        Dept currentDept = deptMapper.selectById(currentUser.getDeptId());
+        return deptMapper.selectRelationDeptByPage(page, dept, currentDept.getAncestors());
     }
 
     /**
