@@ -7,6 +7,7 @@ import com.xueyou.admin.common.core.Constants;
 import com.xueyou.admin.common.core.annotation.LoginUser;
 import com.xueyou.admin.common.core.constant.UserConstants;
 import com.xueyou.admin.common.core.controller.BaseController;
+import com.xueyou.admin.common.core.enums.TrueOrFalse;
 import com.xueyou.admin.common.core.utils.RandomUtils;
 import com.xueyou.admin.common.core.utils.StringUtils;
 import com.xueyou.admin.common.core.utils.spring.ServletUtils;
@@ -102,6 +103,7 @@ public class UserController extends BaseController {
         user.setSalt(RandomUtils.randomStr(6));
         user.setPassword(PasswordUtils.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
         user.setCreateBy(UserUtils.getUserName());
+        user.setAdmin(TrueOrFalse.FALSE);
         return Response.ok(userService.insertUser(user));
     }
 
@@ -119,6 +121,7 @@ public class UserController extends BaseController {
         }
         user.setUpdateBy(UserUtils.getUserName());
         user.setUpdateTime(LocalDateTime.now());
+        user.setAdmin(TrueOrFalse.FALSE);
         return Response.ok(userService.updateUser(user));
     }
 

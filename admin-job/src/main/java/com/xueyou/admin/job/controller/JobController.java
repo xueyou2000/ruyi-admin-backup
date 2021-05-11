@@ -32,7 +32,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/monitor/job")
 @Api(value = "JobController", tags = "定时任务")
-@SuppressWarnings("unchecked")
 public class JobController {
 
     @Resource

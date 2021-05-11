@@ -1,6 +1,5 @@
 package com.xueyou.admin.controller;
 
-import cn.hutool.http.server.HttpServerRequest;
 import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.service.CaptchaService;
 import com.xueyou.admin.common.core.Constants;
@@ -34,7 +33,6 @@ import javax.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/auth")
 @Api(value = "TokenController", tags = "登陆认证")
-@SuppressWarnings("unchecked")
 public class TokenController {
 
     @Resource

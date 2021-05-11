@@ -110,7 +110,6 @@ public class RoleController {
     /**
      * 保存角色分配数据权限
      */
-    @SuppressWarnings("unchecked")
     @HasPermissions("system:role:update")
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PostMapping("/authDataScope")

@@ -110,7 +110,7 @@ public class User extends BaseEntity {
     /**
      * 超级管理员
      */
-    private TrueOrFalse admin;
+    private TrueOrFalse admin = TrueOrFalse.FALSE;
 
     // ========= 以下为连表查询的字段
 
