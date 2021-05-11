@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 公司开发
+ Source Server         : 公司开发(26)
  Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : 192.168.1.25:3306
+ Source Server Version : 50729
+ Source Host           : 192.168.1.26:3306
  Source Schema         : my-test
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 04/01/2021 11:24:38
+ Date: 11/05/2021 13:59:59
 */
 
 SET NAMES utf8mb4;
@@ -33,6 +33,5 @@ CREATE TABLE `sys_login_info` (
   `msg` varchar(255) DEFAULT '' COMMENT '提示消息',
   `login_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '访问时间',
   PRIMARY KEY (`info_id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='登陆日志';
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8 COMMENT='登陆日志';
 
-SET FOREIGN_KEY_CHECKS = 1;

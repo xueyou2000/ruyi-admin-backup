@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 公司开发
+ Source Server         : 公司开发(26)
  Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : 192.168.1.25:3306
+ Source Server Version : 50729
+ Source Host           : 192.168.1.26:3306
  Source Schema         : my-test
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 04/01/2021 11:25:30
+ Date: 11/05/2021 13:59:29
 */
 
 SET NAMES utf8mb4;
@@ -30,7 +30,9 @@ CREATE TABLE `sys_config` (
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `remark` varchar(500) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`config_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC COMMENT='参数配置表';
+
+

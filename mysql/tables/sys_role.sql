@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 公司开发
+ Source Server         : 公司开发(26)
  Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : 192.168.1.25:3306
+ Source Server Version : 50729
+ Source Host           : 192.168.1.26:3306
  Source Schema         : my-test
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 04/01/2021 11:24:12
+ Date: 11/05/2021 14:00:21
 */
 
 SET NAMES utf8mb4;
@@ -33,17 +33,17 @@ CREATE TABLE `sys_role` (
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='角色';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='角色';
 
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', '0', NULL, '0', 'admin', '2018-03-16 11:33:00', 'admin', '2018-03-16 11:33:00');
-INSERT INTO `sys_role` VALUES (2, '运维', 'operation', 1, '1', '0', NULL, '0', 'admin', '2018-03-16 11:33:00', 'admin', '2018-03-16 11:33:00');
-INSERT INTO `sys_role` VALUES (3, '测试', 'test', 1, '4', '0', '', '0', '', '2020-12-30 16:10:35', 'admin', '2020-12-31 16:10:28');
+INSERT INTO `sys_role` VALUES (1, '超级管理员', 'admin', 1, '1', '0', '', '0', '', '2018-03-16 11:33:00', 'admin', '2021-05-07 16:49:14');
+INSERT INTO `sys_role` VALUES (2, '运维', 'operation', 1, '1', '0', '', '0', '', '2018-03-16 11:33:00', 'admin', '2021-05-07 16:49:08');
+INSERT INTO `sys_role` VALUES (3, '测试', 'test', 1, '4', '0', '', '0', '', '2020-12-30 16:10:35', 'admin', '2021-05-11 11:49:16');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

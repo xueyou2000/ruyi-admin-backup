@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 公司开发
+ Source Server         : 公司开发(26)
  Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : 192.168.1.25:3306
+ Source Server Version : 50729
+ Source Host           : 192.168.1.26:3306
  Source Schema         : my-test
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 04/01/2021 11:23:28
+ Date: 11/05/2021 14:00:39
 */
 
 SET NAMES utf8mb4;
@@ -41,17 +41,17 @@ CREATE TABLE `sys_user` (
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   `admin` varchar(30) DEFAULT 'FALSE' COMMENT '是否超级管理员',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1344529622942920706 DEFAULT CHARSET=utf8 COMMENT='用户';
+) ENGINE=InnoDB AUTO_INCREMENT=1391686457902530562 DEFAULT CHARSET=utf8 COMMENT='用户';
 
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
 BEGIN;
-INSERT INTO `sys_user` VALUES (1, 100, 'admin', 'XueYou', NULL, 'xueyoucd@gmail.com', '15527568707', '1', '', '425740ca6414a6ef758f816f34d1031e', 'T3F2YZ', '0', '0', '127.0.0.1', '2021-01-04 11:19:20', '内置超级用户', NULL, '2018-03-16 11:33:00', NULL, NULL, 'TRUE');
-INSERT INTO `sys_user` VALUES (1344529622942920705, 107, 'test', '测试小子', NULL, '', '', '0', '', 'f4de7dbf94428bad1304270712cbc4ef', 'zdJm1Y', '0', '0', '127.0.0.1', '2020-12-31 16:03:41', '', NULL, '2020-12-31 14:23:36', NULL, NULL, NULL);
+INSERT INTO `sys_user` VALUES (1, 100, 'admin', 'XueYou', 'SYSTEM', 'xueyoucd@gmail.com', '15527568707', '1', '', '425740ca6414a6ef758f816f34d1031e', 'T3F2YZ', '0', '0', '192.168.1.138', '2021-05-11 09:00:59', '内置超级用户', NULL, '2018-03-16 11:33:00', NULL, NULL, 'TRUE');
+INSERT INTO `sys_user` VALUES (1344529622942920705, 107, 'test', '测试小子', NULL, 'xueyoucd@gmail.com', '15521212121', '0', '', 'e797cb9015221b0593e50b53cfe0a6e6', 'gU58tF', '0', '0', '192.168.32.1', '2021-05-11 13:57:15', 'hello...', NULL, '2020-12-31 14:23:36', NULL, NULL, 'FALSE');
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

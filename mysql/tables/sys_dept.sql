@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : 公司开发
+ Source Server         : 公司开发(26)
  Source Server Type    : MySQL
- Source Server Version : 50726
- Source Host           : 192.168.1.25:3306
+ Source Server Version : 50729
+ Source Host           : 192.168.1.26:3306
  Source Schema         : my-test
 
  Target Server Type    : MySQL
- Target Server Version : 50726
+ Target Server Version : 50729
  File Encoding         : 65001
 
- Date: 04/01/2021 11:25:24
+ Date: 11/05/2021 13:59:37
 */
 
 SET NAMES utf8mb4;
@@ -36,9 +36,9 @@ CREATE TABLE `sys_dept` (
   `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
-  `update_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
   PRIMARY KEY (`dept_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=108 DEFAULT CHARSET=utf8 COMMENT='部门';
+) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8 COMMENT='部门';
 
 -- ----------------------------
 -- Records of sys_dept

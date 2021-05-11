@@ -37,24 +37,3 @@ CREATE TABLE `sys_job_log` (
   PRIMARY KEY (`job_log_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8 COMMENT='定时任务调度日志表';
 
--- ----------------------------
--- Records of sys_job_log
--- ----------------------------
-BEGIN;
-INSERT INTO `sys_job_log` VALUES (83, '测试无参', 'default', 'taskTest.noParams', '测试无参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 11:45:49', NULL, NULL, 114);
-INSERT INTO `sys_job_log` VALUES (84, '测试无参', 'default', 'taskTest.noParams', '测试无参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 11:45:50', NULL, NULL, 114);
-INSERT INTO `sys_job_log` VALUES (85, '测试无参', 'default', 'taskTest.noParams', '测试无参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 11:45:51', NULL, NULL, 114);
-INSERT INTO `sys_job_log` VALUES (86, '测试无参', 'default', 'taskTest.noParams', '测试无参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 11:45:52', NULL, NULL, 114);
-INSERT INTO `sys_job_log` VALUES (87, '测试单参', 'default', 'taskTest.params(\"XueYou\")', '测试单参 总共耗时：0毫秒', '1', 'NumberFormatException: For input string: \"\"XueYou\"\"', NULL, '2020-12-25 11:46:04', NULL, NULL, 115);
-INSERT INTO `sys_job_log` VALUES (88, '测试单参', 'default', 'taskTest.params(\'XueYou\')', '测试单参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 11:46:05', NULL, NULL, 115);
-INSERT INTO `sys_job_log` VALUES (89, '测试多参', 'default', 'taskTest.multipleParams(\'ry\', true, 2000L, 316.50D, 100)', '测试多参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 13:37:16', NULL, NULL, 116);
-INSERT INTO `sys_job_log` VALUES (90, '测试无参', 'default', 'taskTest.noParams', '测试无参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 13:40:00', NULL, NULL, 114);
-INSERT INTO `sys_job_log` VALUES (91, '测试单参', 'default', 'taskTest.params(\'XueYou\')', '测试单参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 13:40:01', NULL, NULL, 115);
-INSERT INTO `sys_job_log` VALUES (92, '测试多参', 'default', 'taskTest.multipleParams(\'ry\', true, 2000L, 316.50D, 100)', '测试多参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 13:40:01', NULL, NULL, 116);
-INSERT INTO `sys_job_log` VALUES (93, '测试无参', 'default', 'taskTest.noParams', '测试无参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 13:50:00', NULL, NULL, 114);
-INSERT INTO `sys_job_log` VALUES (94, '测试单参', 'default', 'taskTest.params(\'XueYou\')', '测试单参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 13:50:01', NULL, NULL, 115);
-INSERT INTO `sys_job_log` VALUES (95, '测试多参', 'default', 'taskTest.multipleParams(\'ry\', true, 2000L, 316.50D, 100)', '测试多参 总共耗时：0毫秒', '0', '', NULL, '2020-12-25 13:50:01', NULL, NULL, 116);
-INSERT INTO `sys_job_log` VALUES (96, '测试无参', 'default', 'taskTest.noParams', '测试无参 总共耗时：0毫秒', '0', '', NULL, '2020-12-30 14:42:53', NULL, NULL, 114);
-COMMIT;
-
-SET FOREIGN_KEY_CHECKS = 1;
