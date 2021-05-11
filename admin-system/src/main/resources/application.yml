@@ -3,7 +3,7 @@ server:
 
 logback:
   logpath: @logback.logpath@
-  name: @artifactId@
+  name: @admin.name@
 
 spring:
   application:
@@ -31,6 +31,7 @@ spring:
         dashboard: @sentinel.host@:@sentinel.port@
       log:
         dir: @logback.logpath@/scp/
+
   quartz:
     scheduler-name: AdminScheduler
     startup-delay: 1

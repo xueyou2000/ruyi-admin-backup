@@ -22,6 +22,7 @@
     </modules>
 
     <properties>
+        <admin.name>xueyou-admin</admin.name>
     	<admin.version>1.0.0-SNAPSHOT</admin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
