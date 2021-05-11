@@ -3,13 +3,16 @@ package com.xueyou.admin.system.controller;
 import cn.hutool.core.convert.Convert;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.xueyou.admin.common.core.enums.TrueOrFalse;
 import com.xueyou.admin.system.auth.annotation.HasPermissions;
 import com.xueyou.admin.common.core.vo.Response;
 import com.xueyou.admin.system.domain.LoginInfo;
+import com.xueyou.admin.system.domain.User;
 import com.xueyou.admin.system.log.annotation.OperLog;
 import com.xueyou.admin.system.log.enums.BusinessType;
 import com.xueyou.admin.system.model.dto.LoginInfoQuery;
 import com.xueyou.admin.system.service.LoginInfoService;
+import com.xueyou.admin.system.utils.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -45,6 +48,11 @@ public class LoginInfoController {
     @HasPermissions("monitor:loginlog:view")
     public Response<IPage<LoginInfo>> findByPage(@PathVariable Integer pageSize, @PathVariable Integer pageNumber, @RequestBody LoginInfoQuery queryDto) {
         IPage<LoginInfo> page = new Page<>(pageNumber, pageSize);
+        // 非超级管理员只查自己， 否则只查当前登陆用户
+        User user = UserUtils.getCurrentUser();
+        if (TrueOrFalse.FALSE.equals(user.getAdmin())) {
+            queryDto.getLoginInfo().setUserId(user.getUserId());
+        }
         return Response.ok(loginInfoService.queryByPage(page, queryDto.getLoginInfo(), queryDto.getQueryBaseDto()));
     }
 

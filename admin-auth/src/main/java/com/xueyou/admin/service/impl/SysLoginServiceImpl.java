@@ -106,7 +106,7 @@ public class SysLoginServiceImpl implements SysLoginService {
         if (UserStatus.DELETED.getCode().equals(user.getDelFlag())) {
             throw new UserDeleteException();
         }
-        if (UserStatus.DISABLE.getCode().equals(user.getSalt())) {
+        if (UserStatus.DISABLE.getCode().equals(user.getStatus())) {
             throw new UserBlockedException();
         }
     }
