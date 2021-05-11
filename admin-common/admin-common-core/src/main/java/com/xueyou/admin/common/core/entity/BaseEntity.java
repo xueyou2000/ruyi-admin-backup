@@ -1,5 +1,6 @@
 package com.xueyou.admin.common.core.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 
@@ -24,11 +25,13 @@ public class BaseEntity implements Serializable {
     /**
      * 创建者
      */
+    @TableField(value = "create_by", updateStrategy = FieldStrategy.NOT_EMPTY)
     private String createBy;
 
     /**
      * 创建时间
      */
+    @TableField(value = "create_time",updateStrategy = FieldStrategy.NOT_NULL)
     private LocalDateTime createTime;
 
     /**

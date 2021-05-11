@@ -40,6 +40,13 @@ public interface MenuService extends BaseService<Menu> {
     List<Menu> selectMenuList(Menu menu);
 
     /**
+     * 查询系统权限列表
+     *
+     * @param user 用户
+     */
+    List<Menu> selectMenuPermissionsList(User user);
+
+    /**
      * 删除菜单
      *
      * @param menuId    菜单Id

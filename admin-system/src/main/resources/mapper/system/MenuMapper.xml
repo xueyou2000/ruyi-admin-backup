@@ -52,6 +52,20 @@
         order by m.order_num
     </select>
 
+    <select id="selectMenuPermissionsList" parameterType="String" resultType="com.xueyou.admin.system.domain.Menu">
+        SELECT distinct
+            m.*
+        from
+            sys_menu m
+                left join sys_role_menu rm on m.menu_id = rm.menu_id
+                left join sys_user_role ur on rm.role_id = ur.role_id
+        WHERE
+            ur.user_id = #{userId}
+          and m.visible = '0'
+        order by
+            m.order_num
+    </select>
+
     <select id="selectMenuList" parameterType="com.xueyou.admin.system.domain.Menu"
             resultType="com.xueyou.admin.system.domain.Menu">
         <include refid="selectMenuVo"/>

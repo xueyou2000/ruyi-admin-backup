@@ -37,6 +37,13 @@ public interface MenuMapper extends BaseMapper<Menu> {
     List<Menu> selectMenusByUserId(String userId);
 
     /**
+     * 查询指定用户系统菜单 (包含按钮)
+     *
+     * @param userId    用户id
+     */
+    List<Menu> selectMenuPermissionsList(String userId);
+
+    /**
      * 查询系统菜单列表
      *
      * @param menu 菜单信息

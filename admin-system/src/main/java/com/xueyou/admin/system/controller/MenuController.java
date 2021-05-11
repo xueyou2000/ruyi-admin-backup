@@ -45,6 +45,15 @@ public class MenuController {
     }
 
     /**
+     * 获取当前用户菜单和权限
+     */
+    @ApiOperation(value = "获取当前用户菜单和权限",  httpMethod = "POST")
+    @PostMapping("permissions")
+    public Response<List<Menu>> permissions(@LoginUser User user) {
+        return Response.ok(menuService.selectMenuPermissionsList(user));
+    }
+
+    /**
      * 查询菜单列表
      */
     @ApiOperation(value = "查询菜单列表",  httpMethod = "POST")

@@ -1,6 +1,7 @@
 package com.xueyou.admin.system.service.impl;
 
 import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.xueyou.admin.common.core.annotation.DataScope;
 import com.xueyou.admin.common.core.enums.TrueOrFalse;
 import com.xueyou.admin.common.core.service.impl.BaseServiceImpl;
 import com.xueyou.admin.common.core.utils.StringUtils;
@@ -76,6 +77,17 @@ public class MenuServiceImpl extends BaseServiceImpl<MenuMapper, Menu> implement
     @Override
     public List<Menu> selectMenuList(Menu menu) {
         return menuMapper.selectMenuList(menu);
+    }
+
+    @Override
+    public List<Menu> selectMenuPermissionsList(User user) {
+        List<Menu> menus;
+        if (TrueOrFalse.TRUE.equals(user.getAdmin())) {
+            menus = lambdaQuery().eq(Menu::getVisible, "0").list();
+        } else {
+            menus = menuMapper.selectMenuPermissionsList(user.getUserId());
+        }
+        return menus;
     }
 
     /**
