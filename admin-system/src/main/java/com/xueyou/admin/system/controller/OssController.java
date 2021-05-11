@@ -26,6 +26,7 @@ import com.xueyou.admin.system.oss.service.CloudStorageService;
 import com.xueyou.admin.system.service.ConfigService;
 import com.xueyou.admin.system.service.OssService;
 
+import com.xueyou.admin.system.utils.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -144,7 +145,6 @@ public class OssController {
         if (file.isEmpty()) {
             throw new OssException("上传文件不能为空");
         }
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
         // 上传文件
         String fileName = file.getOriginalFilename();
         assert fileName != null;
@@ -155,7 +155,7 @@ public class OssController {
         Oss ossEntity = new Oss();
         ossEntity.setUrl(url);
         ossEntity.setFileSuffix(suffix);
-        ossEntity.setCreateBy(loginName);
+        ossEntity.setCreateBy(UserUtils.getUserName());
         ossEntity.setFileName(fileName);
         ossEntity.setCreateTime(LocalDateTime.now());
         ossEntity.setService((long) storage.getService());

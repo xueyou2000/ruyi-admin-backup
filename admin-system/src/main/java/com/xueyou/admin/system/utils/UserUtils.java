@@ -24,4 +24,11 @@ public class UserUtils {
         return RedisUtils.get(Constants.ACCESS_TOKEN + token, User.class);
     }
 
+    /**
+     * 获取当前登陆用户账户
+     */
+    public static String getUserName() {
+        return ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
+    }
+
 }

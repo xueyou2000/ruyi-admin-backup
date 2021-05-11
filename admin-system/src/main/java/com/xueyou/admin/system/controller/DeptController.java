@@ -12,6 +12,7 @@ import com.xueyou.admin.system.domain.Dept;
 import com.xueyou.admin.system.domain.Role;
 import com.xueyou.admin.system.service.DeptService;
 
+import com.xueyou.admin.system.utils.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -70,8 +71,7 @@ public class DeptController {
     @HasPermissions("system:dept:add")
     @PostMapping("add")
     public Response<Boolean> add(@RequestBody Dept dept) {
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
-        dept.setCreateBy(loginName);
+        dept.setCreateBy(UserUtils.getUserName());
         return Response.ok(deptService.insertDept(dept));
     }
 
@@ -82,8 +82,7 @@ public class DeptController {
     @HasPermissions("system:dept:update")
     @PostMapping("update")
     public Response<Boolean> update(@RequestBody Dept dept) {
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
-        dept.setUpdateBy(loginName);
+        dept.setUpdateBy(UserUtils.getUserName());
         dept.setUpdateTime(LocalDateTime.now());
         return Response.ok(deptService.updateDept(dept));
     }

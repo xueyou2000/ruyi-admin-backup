@@ -34,6 +34,7 @@
         <result property="deptName" column="dept_name"/>
         <result property="orderNum" column="order_num"/>
         <result property="status" column="dept_status"/>
+        <result property="ancestors" column="ancestors"/>
     </resultMap>
 
     <resultMap id="RoleResult" type="com.xueyou.admin.system.domain.Role">
@@ -71,6 +72,7 @@
                d.parent_id,
                d.dept_name,
                d.order_num,
+               d.ancestors,
                d.status as dept_status,
                r.role_id,
                r.role_name,

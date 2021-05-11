@@ -12,12 +12,14 @@ import com.xueyou.admin.common.core.utils.StringUtils;
 import com.xueyou.admin.common.core.utils.spring.ServletUtils;
 import com.xueyou.admin.common.core.vo.Response;
 import com.xueyou.admin.system.auth.annotation.HasPermissions;
+import com.xueyou.admin.system.domain.Dept;
 import com.xueyou.admin.system.domain.User;
 import com.xueyou.admin.system.log.annotation.OperLog;
 import com.xueyou.admin.system.log.enums.BusinessType;
 import com.xueyou.admin.system.service.MenuService;
 import com.xueyou.admin.system.service.UserService;
 import com.xueyou.admin.system.utils.PasswordUtils;
+import com.xueyou.admin.system.utils.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -93,13 +95,13 @@ public class UserController extends BaseController {
         } else if (!userService.checkPhonenUnique(user.getPhonenumber())) {
             return Response.error(402, "手机号已存在!");
         }
+
         if (StringUtils.isBlank(user.getPassword())) {
             user.setPassword(UserConstants.DEFAULT_PASSWORD);
         }
         user.setSalt(RandomUtils.randomStr(6));
         user.setPassword(PasswordUtils.encryptPassword(user.getLoginName(), user.getPassword(), user.getSalt()));
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
-        user.setCreateBy(loginName);
+        user.setCreateBy(UserUtils.getUserName());
         return Response.ok(userService.insertUser(user));
     }
 
@@ -115,8 +117,7 @@ public class UserController extends BaseController {
         if (!user.getPhonenumber().equals(oldUser.getPhonenumber()) && !userService.checkPhonenUnique(user.getPhonenumber())) {
             return Response.error(402, "手机号已存在!");
         }
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
-        user.setUpdateBy(loginName);
+        user.setUpdateBy(UserUtils.getUserName());
         user.setUpdateTime(LocalDateTime.now());
         return Response.ok(userService.updateUser(user));
     }

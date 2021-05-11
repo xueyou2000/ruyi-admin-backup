@@ -12,6 +12,7 @@ import com.xueyou.admin.job.service.JobService;
 import com.xueyou.admin.system.auth.annotation.HasPermissions;
 import com.xueyou.admin.system.log.annotation.OperLog;
 import com.xueyou.admin.system.log.enums.BusinessType;
+import com.xueyou.admin.system.utils.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -74,8 +75,7 @@ public class JobController {
         if (!jobService.checkCronExpressionIsValid(job.getCronExpression())) {
             return Response.error(402, "cron表达式不正确");
         }
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
-        job.setCreateBy(loginName);
+        job.setCreateBy(UserUtils.getUserName());
         return Response.ok(jobService.insertJob(job));
     }
 
@@ -90,8 +90,7 @@ public class JobController {
         if (!jobService.checkCronExpressionIsValid(job.getCronExpression())) {
             return Response.error(402, "cron表达式不正确");
         }
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
-        job.setUpdateBy(loginName);
+        job.setUpdateBy(UserUtils.getUserName());
         return Response.ok(jobService.updateJob(job));
     }
 

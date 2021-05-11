@@ -98,9 +98,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean insertUser(User user) {
+        boolean result = save(user);
         // 新增用户与角色管理
         insertUserRole(user);
-        return save(user);
+        return result;
     }
 
     /**

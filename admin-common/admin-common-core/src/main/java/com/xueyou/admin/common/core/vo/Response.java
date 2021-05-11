@@ -55,9 +55,8 @@ public class Response<T> {
      * @param data 响应数据
      * @return 成功响应
      */
-    @SuppressWarnings("unchecked")
     public static <T> Response<T> ok(T data) {
-        Response res = new Response<T>();
+        Response<T> res = new Response<>();
         res.status = OK;
         res.message = OkMessage;
         res.res = data;
@@ -67,8 +66,8 @@ public class Response<T> {
     /**
      * 响应成功
      */
-    public static Response ok() {
-        Response res = new Response();
+    public static <T> Response<T> ok() {
+        Response<T> res = new Response<>();
         res.status = OK;
         res.message = OkMessage;
         return res;
@@ -80,8 +79,8 @@ public class Response<T> {
      * @param status    错误码
      * @param message   错误消息
      */
-    public static Response error(int status, String message) {
-        Response res = new Response();
+    public static <T> Response<T> error(int status, String message) {
+        Response<T> res = new Response<>();
         res.status = status;
         res.message = message;
         return res;

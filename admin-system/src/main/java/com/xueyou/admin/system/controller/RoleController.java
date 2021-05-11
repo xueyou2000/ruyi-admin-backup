@@ -15,6 +15,7 @@ import com.xueyou.admin.system.domain.Role;
 import com.xueyou.admin.system.model.dto.RoleQuery;
 import com.xueyou.admin.system.service.RoleService;
 
+import com.xueyou.admin.system.utils.UserUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -73,8 +74,7 @@ public class RoleController {
     @OperLog(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping("add")
     public Response<Integer> add(@RequestBody Role role) {
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
-        role.setCreateBy(loginName);
+        role.setCreateBy(UserUtils.getUserName());
         return Response.ok(roleService.insertRole(role));
     }
 
@@ -86,8 +86,7 @@ public class RoleController {
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PostMapping("update")
     public Response<Integer> update(@RequestBody Role role) {
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
-        role.setUpdateBy(loginName);
+        role.setUpdateBy(UserUtils.getUserName());
         role.setUpdateTime(LocalDateTime.now());
         // 删除redis缓存权限
         Set<String> keys = RedisUtils.keys("user_perms:*");
@@ -116,8 +115,7 @@ public class RoleController {
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PostMapping("/authDataScope")
     public Response<Boolean> authDataScopeSave(@RequestBody Role role) {
-        String loginName = ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
-        role.setUpdateBy(loginName);
+        role.setUpdateBy(UserUtils.getUserName());
         role.setUpdateTime(LocalDateTime.now());
         if (roleService.authDataScope(role) > 0) {
             return Response.ok(true);
