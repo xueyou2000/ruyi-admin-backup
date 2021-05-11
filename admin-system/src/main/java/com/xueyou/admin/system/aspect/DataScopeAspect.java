@@ -1,12 +1,9 @@
 package com.xueyou.admin.system.aspect;
 
-import com.xueyou.admin.common.core.Constants;
 import com.xueyou.admin.common.core.annotation.DataScope;
 import com.xueyou.admin.common.core.entity.BaseEntity;
 import com.xueyou.admin.common.core.enums.TrueOrFalse;
 import com.xueyou.admin.common.core.utils.StringUtils;
-import com.xueyou.admin.common.core.utils.spring.ServletUtils;
-import com.xueyou.admin.common.redis.util.RedisUtils;
 import com.xueyou.admin.system.domain.Role;
 import com.xueyou.admin.system.domain.User;
 import com.xueyou.admin.system.utils.UserUtils;
@@ -19,7 +16,6 @@ import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 
 /**
@@ -63,6 +59,11 @@ public class DataScopeAspect {
      */
     public static final String DATA_SCOPE = "dataScope";
 
+    /**
+     * 用户账号-注入数据参数
+     */
+    public static final String LoginName = "loginName";
+
     // 配置织入点
     @Pointcut("@annotation(com.xueyou.admin.common.core.annotation.DataScope)")
     public void dataScopePointCut() {
@@ -102,6 +103,7 @@ public class DataScopeAspect {
     public static void dataScopeFilter(JoinPoint joinPoint, User user, String deptAlias, String userAlias, long paramsIndex) {
         BaseEntity baseEntity = (BaseEntity) joinPoint.getArgs()[(int) paramsIndex];
         baseEntity.getParams().put(DATA_SCOPE, getDataScopeFilterSql(user, deptAlias, userAlias));
+        baseEntity.getParams().put(LoginName, user.getLoginName());
     }
 
     /**

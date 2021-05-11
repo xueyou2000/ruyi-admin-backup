@@ -33,6 +33,8 @@
         </if>
         <!-- 数据范围过滤 -->
         ${role.params.dataScope}
+        or r.create_by = #{role.params.loginName}
+
     </select>
 
     <select id="selectRoleAll" parameterType="String" resultType="com.xueyou.admin.system.domain.Role">
