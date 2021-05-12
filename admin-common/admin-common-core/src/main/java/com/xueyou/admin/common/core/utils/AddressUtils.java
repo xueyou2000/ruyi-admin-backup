@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AddressUtils {
 
-    public static final String IP_URL = "http://ip-api.com/json/%s?lang=zh-CN";
+    public static final String IP_URL = "https://ip.taobao.com/outGetIpInfo?ip=%s";
 
     /**
      * 根据ip获取真实地址
@@ -21,23 +21,28 @@ public class AddressUtils {
      * @param ip    ip
      */
     public static String getRealAddressByIP(String ip) {
-        String address = "XX XX";
+        String address = "-";
         // 内网不查询
         if (IpUtils.internalIp(ip)) {
             return "内网IP";
         }
 
-        String rspStr = HttpUtil.get(String.format(IP_URL, ip));
-        if (StringUtils.isBlank(rspStr)) {
-            log.error("获取地理位置异常 {}", ip);
-            return address;
-        }
-
         try {
+            String rspStr = HttpUtils.requestJson(String.format(IP_URL, ip),  null,"GET");
+            log.info("ip={} 地理位置={}", ip, rspStr);
+            if (StringUtils.isBlank(rspStr)) {
+                log.error("获取地理位置异常 {}", ip);
+                return address;
+            }
+
             JSONObject obj = JSON.parseObject(rspStr);
-            address = obj.getString("country") + "," + obj.getString("regionName") + "," + obj.getString("city");
+            if (obj.getInteger("code") != 0) {
+                throw new Exception(obj.getString("msg"));
+            }
+            JSONObject data = obj.getJSONObject("data");
+            address = data.getString("country") + "," + data.getString("region") + "," + data.getString("city") + "," + data.getString("isp");
         } catch (Exception e) {
-            log.error("获取地理位置异常 {}", ip);
+            log.error("获取地理位置异常 ip={}, error={}", ip, e.getMessage());
         }
         return address;
     }

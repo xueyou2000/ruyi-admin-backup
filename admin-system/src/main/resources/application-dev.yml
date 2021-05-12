@@ -62,3 +62,9 @@ spring:
           config:
             multi-statement-allow: true
       test-while-idle: false
+
+
+mybatis-plus:
+  configuration:
+    # 打印日志到标准输出流, 否则MyBatis Log插件无法使用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -57,8 +57,6 @@ mybatis-plus:
     # 用本地缓存机制（Local Cache）防止循环引用（circular references）和加速重复嵌套查询.
     # SESSION(默认值): 这种情况下会缓存一个会话中执行的所有查询,  STATEMENT: 本地会话仅用在语句执行上，对相同 SqlSession 的不同调用将不会共享数
     local-cache-scope: statement
-    # 打印日志到标准输出流, 否则MyBatis Log插件无法使用
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     default-enum-type-handler: org.apache.ibatis.type.EnumTypeHandler
 
 
