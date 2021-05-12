@@ -31,4 +31,12 @@ public class UserUtils {
         return ServletUtils.getRequest().getHeader(Constants.CURRENT_USERNAME);
     }
 
+    /**
+     * 获取当前登陆用户ID
+     */
+    public static String getUserId() {
+        return ServletUtils.getRequest().getHeader(Constants.CURRENT_ID);
+    }
+
+
 }

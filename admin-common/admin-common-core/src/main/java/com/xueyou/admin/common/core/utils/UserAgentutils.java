@@ -43,7 +43,6 @@ public class UserAgentutils {
         }
 
         osVersion = strArr[1];
-        log.info("osVersion is:{}", osVersion);
         return osVersion;
     }
 
@@ -70,7 +69,6 @@ public class UserAgentutils {
     public static String getOs(String userAgent) {
         OperatingSystem operatingSystem = getOperatingSystem(userAgent);
         String os = operatingSystem.getGroup().getName();
-        log.info("os is:{}", os);
         return os;
     }
 
@@ -107,7 +105,6 @@ public class UserAgentutils {
     public static String getOsName(String userAgent) {
         OperatingSystem operatingSystem = getOperatingSystem(userAgent);
         String osName = operatingSystem.getName();
-        log.info("osName is:{}", osName);
         return osName;
     }
 
@@ -126,7 +123,6 @@ public class UserAgentutils {
     public static String getDeviceManufacturer(String userAgent) {
         OperatingSystem operatingSystem = getOperatingSystem(userAgent);
         String deviceManufacturer = operatingSystem.getManufacturer().toString();
-        log.info("deviceManufacturer is:{}", deviceManufacturer);
         return deviceManufacturer;
     }
 
@@ -153,7 +149,6 @@ public class UserAgentutils {
     public static String getBorderName(String userAgent) {
         Browser browser = getBrowser(userAgent);
         String borderName = browser.getName();
-        log.info("borderName is:{}", borderName);
         return borderName;
     }
 
@@ -172,7 +167,6 @@ public class UserAgentutils {
     public static String getBorderType(String userAgent) {
         Browser browser = getBrowser(userAgent);
         String borderType = browser.getBrowserType().getName();
-        log.info("borderType is:{}", borderType);
         return borderType;
     }
 
@@ -189,9 +183,7 @@ public class UserAgentutils {
      */
     public static String getBorderGroup(String userAgent) {
         Browser browser = getBrowser(userAgent);
-        String browerGroup = browser.getGroup().getName();
-        log.info("browerGroup is:{}", browerGroup);
-        return browerGroup;
+        return browser.getGroup().getName();
     }
 
     /**
@@ -208,9 +200,7 @@ public class UserAgentutils {
      */
     public static String getBrowserManufacturer(String userAgent) {
         Browser browser = getBrowser(userAgent);
-        String browserManufacturer = browser.getManufacturer().getName();
-        log.info("browserManufacturer is:{}", browserManufacturer);
-        return browserManufacturer;
+        return browser.getManufacturer().getName();
     }
 
 
@@ -227,9 +217,7 @@ public class UserAgentutils {
      */
     public static String getBorderRenderingEngine(String userAgent) {
         Browser browser = getBrowser(userAgent);
-        String renderingEngine = browser.getRenderingEngine().name();
-        log.info("renderingEngine is:{}", renderingEngine);
-        return renderingEngine;
+        return browser.getRenderingEngine().name();
     }
 
 

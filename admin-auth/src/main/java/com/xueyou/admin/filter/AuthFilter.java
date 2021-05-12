@@ -8,8 +8,14 @@ import com.xueyou.admin.common.redis.util.RedisUtils;
 import com.xueyou.admin.system.config.AdminConfig;
 import com.xueyou.admin.system.domain.User;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
+import org.springframework.util.PathMatcher;
+import org.springframework.web.servlet.HandlerExecutionChain;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfo;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMapping;
+import org.springframework.web.util.UrlPathHelper;
 
 import javax.annotation.Resource;
 import javax.servlet.*;
@@ -30,6 +36,8 @@ public class AuthFilter implements Filter {
     @Resource
     private AdminConfig adminConfig;
 
+    @Autowired
+    private RequestMappingInfoHandlerMapping requestMappingInfoHandlerMapping;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -51,7 +59,7 @@ public class AuthFilter implements Filter {
         // token为空
         String token = req.getHeader(Constants.AUTHORIZATION_HEAD);
         if (StringUtils.isBlank(token)) {
-            setUnauthorizedResponse(response, "token can't null or empty string");
+            setUnauthorizedResponse(response, "unauthorized");
             return;
         }
 

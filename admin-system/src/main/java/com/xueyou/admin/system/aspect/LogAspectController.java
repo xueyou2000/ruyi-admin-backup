@@ -2,6 +2,7 @@ package com.xueyou.admin.system.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.xueyou.admin.common.core.utils.IpUtils;
+import com.xueyou.admin.system.utils.UserUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -46,19 +47,20 @@ public class LogAspectController {
         assert attributes != null;
         HttpServletRequest request = attributes.getRequest();
         String ip = IpUtils.getIpAddr(request);
-        // 类名
-        String className = pjp.getTarget().getClass().getName();
-        // 方法名
-        String methodName = pjp.getSignature().getName();
+//        // 类名
+//        String className = pjp.getTarget().getClass().getName();
+//        // 方法名
+//        String methodName = pjp.getSignature().getName();
         // 参数列表
         Object[] args = pjp.getArgs();
-        String url = request.getRequestURL().toString();
+        String url = request.getRequestURI();
 
-        log.info("HTTP Request --> {} 请求IP={} 请求方法={} 请求参数={}",
+        log.info("HTTP Request --> {} args={} user=[{ loginName: {}, userId: {}, ip: {} }]",
                 url,
-                ip,
-                className + "::" + methodName,
-                args);
+                args,
+                UserUtils.getUserName(),
+                UserUtils.getUserId(),
+                ip);
 
         Object result = pjp.proceed();
 //        log.info("HTTP Response <-- {} 耗时={} 结果={}", url, System.currentTimeMillis() - startTime.get(), JSON.toJSONString(result));
