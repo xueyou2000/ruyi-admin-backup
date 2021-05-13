@@ -146,4 +146,10 @@ public class User extends BaseEntity {
     @TableField(exist = false)
     private String userAgent;
 
+    /**
+     * 登陆地址
+     */
+    @TableField(exist = false)
+    private String loginLocation;
+
 }

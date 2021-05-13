@@ -70,7 +70,7 @@ public class OnlineController {
             userOnline.setDeptName(user.getDept().getDeptName());
             userOnline.setIpaddr(user.getLoginIp());
             userOnline.setLoginTime(user.getLoginDate());
-            userOnline.setLoginLocation(AddressUtils.getRealAddressByIP(user.getLoginIp()));
+            userOnline.setLoginLocation(com.xueyou.admin.common.core.utils.StringUtils.isBlank(user.getLoginLocation()) ? AddressUtils.getRealAddressByIP(user.getLoginIp()) : user.getLoginLocation());
             if (StringUtils.isNotBlank(userAgent)) {
                 userOnline.setBrowser(UserAgentutils.getBorderName(userAgent) + " " + UserAgentutils.getBrowserVersion(userAgent));
                 userOnline.setOs(UserAgentutils.getOsVersion(userAgent));

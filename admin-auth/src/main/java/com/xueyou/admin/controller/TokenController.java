@@ -55,6 +55,7 @@ public class TokenController {
     public Response<TokenInfo> login(@RequestBody LoginDto loginDto) {
         // 用户登陆
         User user = sysLoginService.login(loginDto.getUsername(), loginDto.getPassword());
+
         // 获取token
         return Response.ok(accessTokenService.createToken(user));
     }

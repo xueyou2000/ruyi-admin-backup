@@ -4,8 +4,10 @@ import com.xueyou.admin.common.core.Constants;
 import com.xueyou.admin.common.core.constant.UserConstants;
 import com.xueyou.admin.common.core.enums.UserStatus;
 import com.xueyou.admin.common.core.exception.user.*;
+import com.xueyou.admin.common.core.utils.AddressUtils;
 import com.xueyou.admin.common.core.utils.IpUtils;
 import com.xueyou.admin.common.core.utils.MessageUtils;
+import com.xueyou.admin.common.core.utils.UserAgentutils;
 import com.xueyou.admin.common.core.utils.spring.ServletUtils;
 import com.xueyou.admin.system.log.publish.PublishFactory;
 import com.xueyou.admin.service.SysLoginService;
@@ -119,6 +121,8 @@ public class SysLoginServiceImpl implements SysLoginService {
     @Override
     public void recordLoginInfo(User user) {
         user.setLoginIp(IpUtils.getIpAddr(ServletUtils.getRequest()));
+        user.setLoginLocation(AddressUtils.getRealAddressByIP(user.getLoginIp()));
+        user.setUserAgent(UserAgentutils.getUserAgent(ServletUtils.getRequest()));
         user.setLoginDate(LocalDateTime.now());
         userService.updateUser(user);
     }

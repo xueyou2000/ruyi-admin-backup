@@ -1,5 +1,6 @@
 package com.xueyou.admin.service.impl;
 
+import com.xueyou.admin.common.core.utils.AddressUtils;
 import com.xueyou.admin.common.core.utils.UserAgentutils;
 import com.xueyou.admin.common.core.utils.spring.ServletUtils;
 import com.xueyou.admin.model.vo.TokenInfo;
@@ -57,7 +58,6 @@ public class AccessTokenServiceImpl implements AccessTokenService {
         res.setUserId(user.getUserId());
         res.setExpire(EXPIRE);
 
-        user.setUserAgent(UserAgentutils.getUserAgent(ServletUtils.getRequest()));
         RedisUtils.setEx(ACCESS_TOKEN + token, user, (int) EXPIRE);
         RedisUtils.setEx(ACCESS_USERID + user.getUserId(), token, (int) EXPIRE);
         return res;

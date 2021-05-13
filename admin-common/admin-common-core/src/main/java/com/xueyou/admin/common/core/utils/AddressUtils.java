@@ -1,8 +1,8 @@
 package com.xueyou.admin.common.core.utils;
 
-import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.xueyou.admin.common.redis.util.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -21,6 +21,11 @@ public class AddressUtils {
      * @param ip    ip
      */
     public static String getRealAddressByIP(String ip) {
+        String cacheAddress = RedisUtils.get("ip-cache:" + ip, String.class);
+        if (StringUtils.isNotBlank(cacheAddress)) {
+            return cacheAddress;
+        }
+
         String address = "-";
         // 内网不查询
         if (IpUtils.internalIp(ip)) {
@@ -41,6 +46,7 @@ public class AddressUtils {
             }
             JSONObject data = obj.getJSONObject("data");
             address = data.getString("country") + "," + data.getString("region") + "," + data.getString("city") + "," + data.getString("isp");
+            RedisUtils.setEx("ip-cache:" + ip, address, 86400);
         } catch (Exception e) {
             log.error("获取地理位置异常 ip={}, error={}", ip, e.getMessage());
         }
