@@ -25,7 +25,11 @@
         <result property="admin" column="admin"/>
         <association property="dept" column="dept_id" javaType="com.xueyou.admin.system.domain.Dept" resultMap="deptResult"/>
         <collection property="roles" javaType="java.util.List" resultMap="RoleResult"/>
-        <collection property="roleIds" javaType="java.util.List" resultMap="RoleIdsResult"/>
+        <collection property="roleIds" ofType="java.lang.Long">
+            <constructor>
+                <arg column="role_id"/>
+            </constructor>
+        </collection>
     </resultMap>
 
     <resultMap id="deptResult" type="com.xueyou.admin.system.domain.Dept">
@@ -44,10 +48,6 @@
         <result property="roleSort" column="role_sort"/>
         <result property="dataScope" column="data_scope"/>
         <result property="status" column="role_status"/>
-    </resultMap>
-
-    <resultMap id="RoleIdsResult" type="Long">
-        <id property="roleId" column="role_id"/>
     </resultMap>
 
     <sql id="selectUserVo">
@@ -109,22 +109,22 @@
         order by u.create_time
     </select>
 
-    <select id="selectUserByLoginName" parameterType="String" resultMap="SysUserResult">
+    <select id="selectUserByLoginName" parameterType="java.lang.String" resultMap="SysUserResult">
         <include refid="selectUserVo"/>
         where u.login_name = #{userName}
     </select>
 
-    <select id="selectUserByPhoneNumber" parameterType="String" resultMap="SysUserResult">
+    <select id="selectUserByPhoneNumber" parameterType="java.lang.String" resultMap="SysUserResult">
         <include refid="selectUserVo"/>
         where u.phonenumber = #{phonenumber}
     </select>
 
-    <select id="selectUserByEmail" parameterType="String" resultMap="SysUserResult">
+    <select id="selectUserByEmail" parameterType="java.lang.String" resultMap="SysUserResult">
         <include refid="selectUserVo"/>
         where u.email = #{email}
     </select>
 
-    <select id="selectUserById" parameterType="String" resultMap="SysUserResult">
+    <select id="selectUserById" parameterType="java.lang.String" resultMap="SysUserResult">
         <include refid="selectUserVo"/>
         where u.user_id = #{userId}
     </select>

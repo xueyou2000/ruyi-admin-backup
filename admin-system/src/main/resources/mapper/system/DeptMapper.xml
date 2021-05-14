@@ -82,7 +82,7 @@
     </select>
 
 
-    <select id="selectDeptAll" parameterType="String" resultType="com.xueyou.admin.system.domain.Dept">
+    <select id="selectDeptAll" parameterType="java.lang.String" resultType="com.xueyou.admin.system.domain.Dept">
         <include refid="selectDeptVo" />
         where d.del_flag = '0'
         <!-- 数据范围过滤 -->
@@ -100,7 +100,7 @@
         where dept_id in (${ancestors})
     </update>
 
-    <select id="selectChildrenDeptById" parameterType="Long" resultType="com.xueyou.admin.system.domain.Dept">
+    <select id="selectChildrenDeptById" parameterType="java.lang.Long" resultType="com.xueyou.admin.system.domain.Dept">
         select * from sys_dept
         <where>
             FIND_IN_SET(#{id},ancestors)
@@ -125,7 +125,7 @@
         where dept_name=#{deptName} and parent_id = #{parentId}
     </select>
 
-    <select id="selectRoleDeptIds" parameterType="Long" resultType="Long">
+    <select id="selectRoleDeptIds" parameterType="java.lang.Long" resultType="java.lang.Long">
         select d.dept_id
         from sys_dept d
                  left join sys_role_dept rd on d.dept_id = rd.dept_id
