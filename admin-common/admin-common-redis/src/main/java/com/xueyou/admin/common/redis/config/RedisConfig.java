@@ -1,5 +1,6 @@
 package com.xueyou.admin.common.redis.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import redis.clients.jedis.JedisPool;
@@ -14,6 +15,7 @@ import javax.annotation.Resource;
  * @version V1.0.0
  * @since 2020/9/29 11:55 上午
  */
+@ConditionalOnProperty(name="redis.host")
 @Configuration
 public class RedisConfig {
 

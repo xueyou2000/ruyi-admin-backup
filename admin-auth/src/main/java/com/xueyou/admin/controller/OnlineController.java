@@ -96,7 +96,7 @@ public class OnlineController {
                 userOnlineList.add(userOnline);
             }
         }
-
+        userOnlineList.sort((a, b) -> b.getLoginTime().compareTo(a.getLoginTime()));
         return Response.ok(userOnlineList);
     }
 
