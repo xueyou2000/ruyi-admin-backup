@@ -3,6 +3,7 @@ package com.xueyou.admin.controller;
 import com.anji.captcha.model.common.ResponseModel;
 import com.anji.captcha.service.CaptchaService;
 import com.xueyou.admin.common.core.Constants;
+import com.xueyou.admin.common.core.exception.user.UserException;
 import com.xueyou.admin.common.core.utils.CodeBuilder;
 import com.xueyou.admin.common.core.utils.StringUtils;
 import com.xueyou.admin.common.redis.util.RedisUtils;
@@ -52,7 +53,7 @@ public class TokenController {
      */
     @ApiOperation(value = "账号密码登陆",  httpMethod = "POST")
     @PostMapping("login")
-    public Response<TokenInfo> login(@RequestBody LoginDto loginDto) {
+    public Response<TokenInfo> login(@RequestBody LoginDto loginDto) throws UserException {
         // 用户登陆
         User user = sysLoginService.login(loginDto.getUsername(), loginDto.getPassword());
 
@@ -67,7 +68,7 @@ public class TokenController {
      */
     @ApiOperation(value = "滑动验证登陆",  httpMethod = "POST")
     @PostMapping("login/captcha")
-    public Response<TokenInfo> loginByCaptcha(@RequestBody LoginDto loginDto) {
+    public Response<TokenInfo> loginByCaptcha(@RequestBody LoginDto loginDto) throws UserException {
         ResponseModel response = captchaService.verification(loginDto.getCaptchaVO());
         if (response.isSuccess()) {
             // 用户登陆
@@ -118,7 +119,7 @@ public class TokenController {
      */
     @PostMapping("login/mobile")
     @ApiOperation(value = "手机验证码登陆",  httpMethod = "POST")
-    public Response<TokenInfo> loginByMobile(@RequestBody MobileLoginDto mobileLoginDto) {
+    public Response<TokenInfo> loginByMobile(@RequestBody MobileLoginDto mobileLoginDto) throws UserException {
         String captch = RedisUtils.get("mobile-captch:" + mobileLoginDto.getMobile(), String.class);
         if (StringUtils.isNotBlank(captch) && StringUtils.pathEquals(captch, mobileLoginDto.getCaptcha())) {
             User user = userService.selectUserByMobile(mobileLoginDto.getMobile());

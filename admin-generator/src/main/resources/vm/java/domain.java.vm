@@ -7,6 +7,8 @@ import com.xueyou.admin.common.core.entity.BaseEntity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.time.LocalDateTime;
+
 #foreach ($import in $importList)
 import ${import};
 #end
@@ -31,7 +33,7 @@ public class ${ClassName} extends BaseEntity {
      * $column.columnComment
      */
 #if($column.columnName == $pk.columnName)
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
 #end
     private $column.javaType $column.javaField;
     #end

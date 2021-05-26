@@ -31,7 +31,7 @@ public class FileController {
      */
     @ApiOperation(value = "临时文件下载",  httpMethod = "GET")
     @RequestMapping(value = "/tmp-download/{fileName}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-    void download(@PathVariable("fileName") String fileName, HttpServletResponse response) {
+    void download(@PathVariable("fileName") String fileName, HttpServletResponse response) throws FileNotFoundException {
         // 读取本地文件的输入流
         try (InputStream in = new FileInputStream(new File(ToolUtils.getDownloadPath() + fileName));
              OutputStream out = response.getOutputStream()) {

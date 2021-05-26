@@ -25,6 +25,7 @@ CREATE TABLE `sys_dict_data` (
   `dict_code` int(11) NOT NULL AUTO_INCREMENT COMMENT '字典编码',
   `dict_sort` int(4) DEFAULT '0' COMMENT '字典排序',
   `dict_label` varchar(100) DEFAULT '' COMMENT '字典标签',
+  `dict_lang_label` varchar(100) DEFAULT '' COMMENT '字典国际化标签',
   `dict_value` varchar(100) DEFAULT '' COMMENT '字典键值',
   `dict_type` varchar(100) DEFAULT '' COMMENT '字典类型',
   `css_class` varchar(100) DEFAULT NULL COMMENT '样式属性（其他样式扩展）',

@@ -1,7 +1,7 @@
 package com.xueyou.admin.system.service.impl;
 
 import cn.hutool.core.convert.Convert;
-import com.xueyou.admin.common.core.exception.BusinessException;
+import com.xueyou.admin.common.core.exception.base.BusinessRuntimeException;
 import com.xueyou.admin.common.core.service.impl.BaseServiceImpl;
 import com.xueyou.admin.common.core.utils.StringUtils;
 import com.xueyou.admin.system.domain.DictType;
@@ -63,7 +63,7 @@ public class DictTypeServiceImpl extends BaseServiceImpl<DictTypeMapper, DictTyp
         for (Long dictId : dictIds) {
             DictType dictType = selectDictTypeById(dictId);
             if (dictDataMapper.countDictDataByType(dictType.getDictType()) > 0) {
-                throw new BusinessException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
+                throw new BusinessRuntimeException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
             }
         }
 

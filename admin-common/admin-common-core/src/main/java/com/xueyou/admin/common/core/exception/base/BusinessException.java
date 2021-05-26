@@ -4,13 +4,11 @@ import com.xueyou.admin.common.core.utils.MessageUtils;
 import com.xueyou.admin.common.core.utils.StringUtils;
 
 /**
- * 基础异常
- *
- * @author chendong
- * @version V1.0.0
- * @since 2020/9/30 9:21 上午
+ * 业务异常
+ * @author xueyou
+ * @date 2021/5/17
  */
-public class BaseException extends RuntimeException {
+public class BusinessException extends Exception {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,39 +32,33 @@ public class BaseException extends RuntimeException {
      */
     private String defaultMessage;
 
-    public BaseException(String module, String code, Object[] args, String defaultMessage) {
+    public BusinessException(String module, String code, Object[] args, String defaultMessage) {
+        super(formatMessage(code, args, defaultMessage));
         this.module = module;
         this.code = code;
         this.args = args;
         this.defaultMessage = defaultMessage;
     }
 
-    public BaseException(String module, String code, Object[] args) {
+    public BusinessException(String module, String code, Object[] args) {
         this(module, code, args, null);
     }
 
-    public BaseException(String module, String defaultMessage) {
+    public BusinessException(String module, String defaultMessage) {
         this(module, null, null, defaultMessage);
     }
 
-    public BaseException(String code, Object[] args) {
+    public BusinessException(String code, Object[] args) {
         this(null, code, args, null);
     }
 
-    public BaseException(String defaultMessage) {
+    public BusinessException(String defaultMessage) {
         this(null, null, null, defaultMessage);
     }
 
     @Override
     public String getMessage() {
-        String message = null;
-        if (!StringUtils.isBlank(code)) {
-            message = MessageUtils.message(code, args);
-        }
-        if (message == null) {
-            message = defaultMessage;
-        }
-        return message;
+        return formatMessage(code, args, defaultMessage);
     }
 
     public String getModule() {
@@ -83,6 +75,18 @@ public class BaseException extends RuntimeException {
 
     public String getDefaultMessage() {
         return defaultMessage;
+    }
+
+
+    private static String formatMessage(String code, Object[] args, String defaultMessage) {
+        String message = null;
+        if (StringUtils.isNotBlank(code)) {
+            message = MessageUtils.message(code, args);
+        }
+        if (message == null) {
+            message = defaultMessage;
+        }
+        return message;
     }
 
 }

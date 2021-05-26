@@ -26,11 +26,17 @@ public class MessageUtils {
      * @param args          参数
      */
     public static String message(String propertyKey, Locale locale, String fallback, Object... args) {
+        if (StringUtils.isBlank(propertyKey)) {
+            return fallback;
+        }
         MessageSource messageSource = SpringUtils.getBean(ReloadableResourceBundleMessageSource.class);
         if (locale == null) {
             locale = LocaleContextHolder.getLocale();
         }
         try {
+            if (args == null) {
+                args = new Object[0];
+            }
             return messageSource.getMessage(propertyKey, args, locale);
         } catch (NoSuchMessageException e) {
             return fallback;
@@ -51,7 +57,7 @@ public class MessageUtils {
     /**
      * 获取国际化消息
      *
-      * @param propertyKey  消息键
+     * @param propertyKey  消息键
      * @param locale        语言
      */
     public static String messageByLocal(String propertyKey, Locale locale) {

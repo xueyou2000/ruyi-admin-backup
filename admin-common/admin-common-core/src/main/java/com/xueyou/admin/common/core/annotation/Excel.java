@@ -18,6 +18,16 @@ public @interface Excel {
     String name();
 
     /**
+     * 国际化key
+     */
+    String langCode() default "";
+
+    /**
+     * 排序，数值越小，此列越靠前
+     */
+    int order() default 0;
+
+    /**
      * 日期格式, 如: yyyy-MM-dd
      */
     String dateFormat() default "";

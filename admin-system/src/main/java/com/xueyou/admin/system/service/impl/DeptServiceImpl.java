@@ -1,11 +1,10 @@
 package com.xueyou.admin.system.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xueyou.admin.common.core.annotation.DataScope;
 import com.xueyou.admin.common.core.enums.TrueOrFalse;
-import com.xueyou.admin.common.core.exception.BusinessException;
 import com.xueyou.admin.common.core.exception.auth.UnauthorizedException;
+import com.xueyou.admin.common.core.exception.base.BusinessRuntimeException;
 import com.xueyou.admin.common.core.service.impl.BaseServiceImpl;
 import com.xueyou.admin.common.core.utils.StringUtils;
 import com.xueyou.admin.system.aspect.DataScopeAspect;
@@ -18,11 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * 部门 业务处理层
@@ -105,7 +101,7 @@ public class DeptServiceImpl extends BaseServiceImpl<DeptMapper, Dept> implement
             Dept parentDept = deptMapper.selectById(dept.getParentId());
             // 如果父节点不为"正常"状态,则不允许新增子节点
             if (!"0".equals(parentDept.getStatus())) {
-                throw new BusinessException("父部门停用，无法新增");
+                throw new BusinessRuntimeException("父部门停用，无法新增");
             }
             dept.setAncestors(parentDept.getAncestors() + "," + dept.getParentId());
         }

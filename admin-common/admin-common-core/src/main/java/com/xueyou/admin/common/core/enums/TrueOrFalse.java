@@ -22,4 +22,10 @@ public enum TrueOrFalse implements BaseEnum {
     public String getDesc() {
         return desc;
     }
+
+    @Override
+    public String getLangCode() {
+        return this.getClass().getName() + "." + name();
+    }
+
 }

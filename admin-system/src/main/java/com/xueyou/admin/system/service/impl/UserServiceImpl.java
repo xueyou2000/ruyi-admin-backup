@@ -1,10 +1,9 @@
 package com.xueyou.admin.system.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.conditions.update.LambdaUpdateChainWrapper;
 import com.xueyou.admin.common.core.annotation.DataScope;
-import com.xueyou.admin.common.core.exception.BusinessException;
+import com.xueyou.admin.common.core.exception.base.BusinessRuntimeException;
+import com.xueyou.admin.common.core.exception.user.UserNotExistsException;
 import com.xueyou.admin.common.core.service.impl.BaseServiceImpl;
 import com.xueyou.admin.common.core.utils.RandomUtils;
 import com.xueyou.admin.common.core.utils.StringUtils;
@@ -155,10 +154,10 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
      * @param newPassword   新密码
      */
     @Override
-    public boolean restPassword(String userId, String newPassword) {
+    public boolean restPassword(String userId, String newPassword) throws UserNotExistsException {
         User user = getById(userId);
         if (user == null) {
-            throw new BusinessException("用户不存在");
+            throw new UserNotExistsException();
         }
         user.setSalt(RandomUtils.randomStr(6));
         user.setPassword(PasswordUtils.encryptPassword(user.getLoginName(), newPassword, user.getSalt()));

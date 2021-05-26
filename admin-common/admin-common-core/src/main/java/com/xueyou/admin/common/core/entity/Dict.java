@@ -26,6 +26,12 @@ public class Dict {
     private String dictLabel;
 
     /**
+     * 字典国际化标签
+     * 备用字段，默认 字典类型.字典值 作为国际化key，不满足需自定义时才使用
+     */
+    private String dictLangLabel;
+
+    /**
      * 字典键值
      */
     private String dictValue;

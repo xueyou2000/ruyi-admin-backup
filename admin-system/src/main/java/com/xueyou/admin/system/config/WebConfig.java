@@ -4,6 +4,7 @@ import com.alibaba.fastjson.serializer.SerializeConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.alibaba.fastjson.support.config.FastJsonConfig;
 import com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter;
+import com.xueyou.admin.system.config.fasjjson.LocalDateSerializer;
 import com.xueyou.admin.system.config.fasjjson.LocalDateTimeSerializer;
 import com.xueyou.admin.system.config.resolver.LoginUserHandlerResolver;
 import org.springframework.context.annotation.Bean;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 import javax.annotation.Resource;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
@@ -99,6 +101,7 @@ public class WebConfig implements WebMvcConfigurer {
         // 转换 LocalDateTime 类型
         SerializeConfig serializeConfig = SerializeConfig.globalInstance;
         serializeConfig.put(LocalDateTime.class, LocalDateTimeSerializer.instance);
+        serializeConfig.put(LocalDate.class, LocalDateSerializer.instance);
         fastJsonConfig.setSerializeConfig(serializeConfig);
 
         fastJsonConfig.setSerializerFeatures(serializerFeatures);

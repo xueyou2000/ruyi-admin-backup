@@ -46,6 +46,12 @@ public class User extends BaseEntity {
     private String userName;
 
     /**
+     * 用户编号
+     * 预留业务字段, 后期根据需求扩展, 比如是商户类型: C10001
+     */
+    private String userCode;
+
+    /**
      * 用户类型
      * 预留字段, 后期根据需求扩展, 比如是商户类型
      */

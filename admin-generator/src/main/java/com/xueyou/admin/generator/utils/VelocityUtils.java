@@ -87,6 +87,7 @@ public class VelocityUtils {
         templates.add("vm/react/index.tsx.vm");
         templates.add("vm/react/add.tsx.vm");
         templates.add("vm/react/update.tsx.vm");
+        templates.add("vm/react/zh.ts.vm");
 
         return templates;
     }
@@ -136,6 +137,8 @@ public class VelocityUtils {
             fileName = StringUtils.format("{}/Add{}Modal.tsx", reactPath, ClassName);
         } else if (template.contains("update.tsx.vm")) {
             fileName = StringUtils.format("{}/Update{}Modal.tsx", reactPath, ClassName);
+        } else if (template.contains("zh.ts.vm")) {
+            fileName = StringUtils.format("{}/locales/zh-CN.ts", reactPath, ClassName);
         }
 
         return fileName;

@@ -4,6 +4,8 @@ import cn.hutool.core.convert.Convert;
 import com.xueyou.admin.common.core.entity.Dict;
 import com.xueyou.admin.common.core.enums.TrueOrFalse;
 import com.xueyou.admin.common.core.service.impl.BaseServiceImpl;
+import com.xueyou.admin.common.core.utils.MessageUtils;
+import com.xueyou.admin.common.core.utils.StringUtils;
 import com.xueyou.admin.system.domain.DictData;
 import com.xueyou.admin.system.mapper.DictDataMapper;
 import com.xueyou.admin.system.service.DictDataService;
@@ -39,7 +41,14 @@ public class DictDataServiceImpl extends BaseServiceImpl<DictDataMapper, DictDat
         return lambdaQuery()
                 .eq(DictData::getDictType, dictType)
                 .eq(DictData::getStatus, TrueOrFalse.TRUE)
-                .orderByAsc(DictData::getDictSort).list();
+                .orderByAsc(DictData::getDictSort)
+                .list()
+                .stream()
+                .peek(dict -> {
+                    String langCode = StringUtils.isBlank(dict.getDictLangLabel()) ? dict.getDictType() + "." + dict.getDictValue() : dict.getDictLangLabel();
+                    dict.setLangLabel(MessageUtils.message(langCode, null, dict.getDictLabel()));
+                })
+                .collect(Collectors.toList());
     }
 
     /**

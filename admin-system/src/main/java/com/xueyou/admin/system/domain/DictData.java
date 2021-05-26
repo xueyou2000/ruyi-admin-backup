@@ -1,6 +1,7 @@
 package com.xueyou.admin.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.xueyou.admin.common.core.entity.BaseEntity;
@@ -23,7 +24,7 @@ public class DictData extends BaseEntity {
     /**
      * 字典编码
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     private Long dictCode;
 
     /**
@@ -35,6 +36,11 @@ public class DictData extends BaseEntity {
      * 字典标签
      */
     private String dictLabel;
+
+    /**
+     * 字典国际化标签
+     */
+    private String dictLangLabel;
 
     /**
      * 字典键值
@@ -66,5 +72,12 @@ public class DictData extends BaseEntity {
      */
     private String remark;
 
+    // ========= 以下为临时字段
+
+    /**
+     * 国际化标签名
+     */
+    @TableField(exist = false)
+    private String langLabel;
 
 }

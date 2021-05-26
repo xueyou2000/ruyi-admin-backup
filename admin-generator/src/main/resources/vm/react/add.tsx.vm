@@ -3,12 +3,14 @@ import ModalFooter from '@/components/ModalPopup/ModalFooter';
 import { useSubmit } from '@/utils/page-utils';
 import { Button, Form, Input, message } from 'antd';
 import React from 'react';
+import { FormattedMessage, useIntl } from 'umi';
 import { add${ClassName} } from './service';
 
 export default function Add${ClassName}Modal() {
+    const intl = useIntl();
     const { loading, submitHandle } = useSubmit<${ClassName}>(data =>
         add${ClassName}(data).then(() => {
-            message.success('新增${comments}成功');
+            message.success(intl.formatMessage({ id: '${ClassName}Page.addSuccess', defaultMessage: '新增${comments}成功' }));
         }),
     );
 
@@ -21,16 +23,27 @@ export default function Add${ClassName}Modal() {
             <ModalContent>
 #foreach ($column in $columns)
 #if(!$column.superColumn && $column.columnName != $pk.columnName)
-                <Form.Item name="$column.javaField" label="$column.columnComment" rules={[{ required: true, message: '请输入$column.columnComment' }]}>
-                    <Input placeholder="请输入$column.columnComment" />
+                <Form.Item
+                    name="$column.javaField"
+                    label={<FormattedMessage id="${ClassName}.$column.javaField" defaultMessage="$column.columnComment" />}
+                    rules={[
+                        {
+                            required: true,
+                            message: intl.formatMessage({ id: '${ClassName}.$column.javaField\.required', defaultMessage: '请输入$column.columnComment' })
+                        }
+                    ]}
+                >
+                    <Input placeholder={intl.formatMessage({ id: '${ClassName}.$column.javaField\.required', defaultMessage: '请输入$column.columnComment' })} />
                 </Form.Item>
 #end
 #end
             </ModalContent>
             <ModalFooter>
-                <Button>取消</Button>
+                <Button>
+                    <FormattedMessage id="common.cancel" defaultMessage="取消" />
+                </Button>
                 <Button type="primary" loading={loading} htmlType="submit">
-                    确定
+                    <FormattedMessage id="common.confirm" defaultMessage="确定" />
                 </Button>
             </ModalFooter>
         </Form>

@@ -1,0 +1,15 @@
+export default {
+    '${ClassName}Page.title': '${comments}',
+    '${ClassName}Page.add': '新增${comments}',
+    '${ClassName}age.update': '修改${comments}',
+    '${ClassName}Page.removeTips': '是否删除所选${comments}?',
+    '${ClassName}Page.removeOk': '删除成功!',
+    '${ClassName}Page.addSuccess': '新增${comments}成功',
+    '${ClassName}Page.updateSuccess': '修改${comments}成功',
+
+#foreach ($column in $columns)
+#if(!$column.superColumn && $column.columnName != $pk.columnName)
+    '${ClassName}.$column.javaField': '$column.columnComment',
+#end
+#end
+}

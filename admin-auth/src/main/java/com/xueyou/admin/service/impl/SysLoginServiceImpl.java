@@ -40,7 +40,7 @@ public class SysLoginServiceImpl implements SysLoginService {
      * @param password 密码
      */
     @Override
-    public User login(String username, String password) {
+    public User login(String username, String password) throws UserException {
 
         try {
             // 用户名或密码为空 错误
@@ -81,7 +81,7 @@ public class SysLoginServiceImpl implements SysLoginService {
      * @param user 用户信息
      */
     @Override
-    public User login(User user) {
+    public User login(User user) throws UserException {
         try {
             checkUser(user);
 
@@ -101,7 +101,7 @@ public class SysLoginServiceImpl implements SysLoginService {
      *
      * @param user 用户信息
      */
-    private void checkUser(User user) {
+    private void checkUser(User user) throws UserException {
         if (user == null) {
             throw new UserNotExistsException();
         }

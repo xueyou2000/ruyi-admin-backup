@@ -1,6 +1,6 @@
 package com.xueyou.admin.common.core.utils;
 
-import com.xueyou.admin.common.core.exception.base.BaseException;
+import com.xueyou.admin.common.core.exception.base.BusinessRuntimeException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -27,14 +27,14 @@ public class ValidatorUtils {
      *
      * @param object 待校验对象
      * @param groups 待校验的组
-     * @throws BaseException 校验不通过，则报BaseException异常
+     * @throws BusinessRuntimeException 校验不通过，则报BaseException异常
      */
-    public static void validateEntity(Object object, Class<?>... groups) throws BaseException {
+    public static void validateEntity(Object object, Class<?>... groups) throws BusinessRuntimeException {
         Set<ConstraintViolation<Object>> constraintViolations = validator.validate(object, groups);
         if (!constraintViolations.isEmpty()) {
             ConstraintViolation<Object> constraint = constraintViolations.iterator()
                     .next();
-            throw new BaseException(constraint.getMessage());
+            throw new BusinessRuntimeException(constraint.getMessage());
         }
     }
 

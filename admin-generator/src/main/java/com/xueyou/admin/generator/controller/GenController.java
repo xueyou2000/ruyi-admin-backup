@@ -41,17 +41,18 @@ public class GenController {
      * 生成代码
      */
     @GetMapping("/genCode/{tableName}")
-    public void genCode(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
+    public String genCode(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
         byte[] data = genService.generatorCode(tableName);
-        genCode(response, data);
+        genCode(response, data, tableName);
+        return "ok";
     }
 
     /**
      * 生成zip文件
      */
-    private void genCode(HttpServletResponse response, byte[] data) throws IOException {
+    private void genCode(HttpServletResponse response, byte[] data, String tableName) throws IOException {
         response.reset();
-        response.setHeader("Content-Disposition", "attachment; filename=code.zip");
+        response.setHeader("Content-Disposition", "attachment; filename=" + tableName + ".zip");
         response.addHeader("Content-Length", "" + data.length);
         response.setContentType("application/octet-stream; charset=UTF-8");
         IOUtils.write(data, response.getOutputStream());

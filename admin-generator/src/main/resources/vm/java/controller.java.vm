@@ -18,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 /**
  * ${comments}
@@ -26,7 +27,7 @@ import javax.annotation.Resource;
  * @date ${datetime}
  */
 @RestController
-@RequestMapping("api/${moduleName}/${className}")
+@RequestMapping("/${moduleName}/${className}")
 @Api(value = "${ClassName}Controller", tags = "${comments}")
 public class ${ClassName}Controller {
 
@@ -37,11 +38,12 @@ public class ${ClassName}Controller {
      * 查询${comments}
      */
     @ApiOperation(value = "查询${comments}",  httpMethod = "POST")
-    @PostMapping(value = "findByPage/{pageSize}/{pageNumber}", produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/findByPage/{pageSize}/{pageNumber}", produces = "application/json;charset=UTF-8")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNumber", value = "页码", paramType = "path", required = true),
             @ApiImplicitParam(name = "pageSize", value = "每页数量", paramType = "path", required = true)
     })
+    @HasPermissions("${moduleName}:${className}:view")
     public Response<IPage<${ClassName}>> findByPage(@PathVariable Integer pageSize, @PathVariable Integer pageNumber, @RequestBody ${ClassName}Query queryDto) {
         IPage<${ClassName}> page = new Page<>(pageNumber, pageSize);
         return Response.ok(${className}Service.queryByPage(page, queryDto.get${ClassName}(), queryDto.getQueryBaseDto()));
@@ -52,7 +54,7 @@ public class ${ClassName}Controller {
      */
     @ApiOperation(value = "新增${comments}",  httpMethod = "POST")
     @HasPermissions("${moduleName}:${className}:add")
-    @PostMapping("add")
+    @PostMapping("/add")
     public Response<Boolean> add(@RequestBody ${ClassName} ${className}) {
         return Response.ok(${className}Service.save(${className}));
     }
@@ -62,7 +64,7 @@ public class ${ClassName}Controller {
      */
     @ApiOperation(value = "修改${comments}",  httpMethod = "POST")
     @HasPermissions("${moduleName}:${className}:update")
-    @PostMapping("update")
+    @PostMapping("/update")
     public Response<Boolean> update(@RequestBody ${ClassName} ${className}) {
         return Response.ok(${className}Service.updateById(${className}));
     }
@@ -72,7 +74,7 @@ public class ${ClassName}Controller {
      */
     @ApiOperation(value = "删除${comments}",  httpMethod = "POST")
     @HasPermissions("${moduleName}:${className}:remove")
-    @PostMapping("remove")
+    @PostMapping("/remove")
     public Response<Boolean> remove(@RequestParam String ids) {
         return Response.ok(${className}Service.removeByIds(Arrays.asList(Convert.toStrArray(ids))));
     }

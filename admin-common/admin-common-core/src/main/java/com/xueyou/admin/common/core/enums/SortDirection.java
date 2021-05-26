@@ -25,4 +25,10 @@ public enum SortDirection implements BaseEnum {
         return desc;
     }
 
+    @Override
+    public String getLangCode() {
+        return this.getClass().getName() + "." + name();
+    }
+
+
 }

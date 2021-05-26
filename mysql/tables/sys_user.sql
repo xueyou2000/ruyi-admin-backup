@@ -34,7 +34,7 @@ CREATE TABLE `sys_user` (
   `password` varchar(50) DEFAULT '' COMMENT '密码',
   `salt` varchar(20) DEFAULT '' COMMENT '盐加密',
   `status` char(1) DEFAULT '0' COMMENT '帐号状态（0正常 1停用）',
-  `del_flag` char(1) DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
+  `del_flag` char(1) DEFAULT '0' COMMENT '删除标志（0代表存在 1代表删除）',
   `login_ip` varchar(50) DEFAULT '' COMMENT '最后登陆IP',
   `login_date` datetime DEFAULT NULL COMMENT '最后登陆时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',

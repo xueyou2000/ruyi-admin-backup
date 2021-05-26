@@ -56,12 +56,12 @@
 
     <select id="checkRoleNameUnique" parameterType="java.lang.String" resultType="com.xueyou.admin.system.domain.Role">
         <include refid="selectRoleVo"/>
-        where r.role_name=#{roleName}
+        where r.role_name=#{roleName} and r.del_flag = '0'
     </select>
 
     <select id="checkRoleKeyUnique" parameterType="java.lang.String" resultType="com.xueyou.admin.system.domain.Role">
         <include refid="selectRoleVo"/>
-        where r.role_key=#{roleKey}
+        where r.role_key=#{roleKey} and r.del_flag = '0'
     </select>
 
 </mapper>

@@ -255,5 +255,4 @@ public class UserAgentutils {
 //        System.out.println("操作系统的版本号：" + getOsVersion(winUserAgent));
 //        System.out.println("操作系统浏览器的渲染引擎:" + getBorderRenderingEngine(winUserAgent));
 //    }
-
 }

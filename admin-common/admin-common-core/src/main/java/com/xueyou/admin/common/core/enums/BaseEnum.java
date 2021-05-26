@@ -14,4 +14,9 @@ public interface BaseEnum {
      */
     String getDesc();
 
+    /**
+     * 获取枚举国际化key
+     */
+    String getLangCode();
+
 }

@@ -1,9 +1,10 @@
 package com.xueyou.admin.common.core.utils;
 
 import com.xueyou.admin.common.core.annotation.Excel;
+import com.xueyou.admin.common.core.enums.BaseEnum;
+import com.xueyou.admin.common.core.exception.base.BusinessRuntimeException;
 import com.xueyou.admin.common.core.text.Convert;
 import com.xueyou.admin.common.core.entity.Dict;
-import com.xueyou.admin.common.core.exception.BusinessException;
 import com.xueyou.admin.common.core.reflect.ReflectUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -23,7 +24,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-
 /**
  * Excel相关处理
  *
@@ -114,6 +114,10 @@ public class ExcelUtils<T> {
                 this.fields.add(field);
             }
         }
+        this.fields.sort(Comparator.comparing(field -> {
+            Excel attr = field.getAnnotation(Excel.class);
+            return attr.order();
+        }));
     }
 
     /**
@@ -341,7 +345,9 @@ public class ExcelUtils<T> {
                     cellStyle.setWrapText(true);
                     cell.setCellStyle(cellStyle);
                     // 写入列名
-                    cell.setCellValue(attr.name());
+                    // 存在国际化列名，则常识国际化
+                    cell.setCellValue(MessageUtils.message(attr.langCode(), null, attr.name()));
+
                     // 如果设置了提示信息则鼠标放上去提示.
                     if (StringUtils.isNotEmpty(attr.prompt())) {
                         // 这里默认设了2-101列提示.
@@ -363,7 +369,7 @@ public class ExcelUtils<T> {
             return filename;
         } catch (Exception e) {
             log.error("导出Excel异常{}", e.getMessage());
-            throw new BusinessException("导出Excel失败，请联系网站管理员！");
+            throw new BusinessRuntimeException("导出Excel失败，请联系网站管理员！");
         } finally {
             if (wb != null) {
                 try {
@@ -435,6 +441,12 @@ public class ExcelUtils<T> {
                             }
                         } else if (StringUtils.isNotEmpty(dictType) && StringUtils.isNotNull(value)) {
                             cell.setCellValue(getDictLabel(dictData, dictType, String.valueOf(value)));
+                        } else if (field.getType() == Double.class && StringUtils.isNotNull(value)) {
+                            cell.setCellValue(Double.parseDouble(value + ""));
+                        }  else if (field.getType().isInstance(BaseEnum.class)) {
+                            // BaseEnum枚举， 尝试国际化
+                            BaseEnum val = (BaseEnum) value;
+                            cell.setCellValue(MessageUtils.message(val.getLangCode(), null, val.getDesc()));
                         } else {
                             // 如果数据存在就填入,不存在填入空格.
                             cell.setCellValue(StringUtils.isNull(value) ? attr.defaultValue() : value + attr.suffix());

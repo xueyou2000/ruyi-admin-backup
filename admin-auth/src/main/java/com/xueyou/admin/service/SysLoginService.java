@@ -1,5 +1,6 @@
 package com.xueyou.admin.service;
 
+import com.xueyou.admin.common.core.exception.user.UserException;
 import com.xueyou.admin.system.domain.User;
 
 /**
@@ -17,14 +18,14 @@ public interface SysLoginService {
      * @param username  登陆账户
      * @param password  密码
      */
-    User login(String username, String password);
+    User login(String username, String password) throws UserException;
 
     /**
      * 用户登陆
      *
      * @param user  用户信息
      */
-    User login(User user);
+    User login(User user) throws UserException;
 
     /**
      * 记录登陆信息

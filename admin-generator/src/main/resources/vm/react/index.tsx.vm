@@ -7,27 +7,37 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { ActionType, ProColumns } from '@ant-design/pro-table';
 import { Button, Divider, message, Modal } from 'antd';
 import React, { useRef } from 'react';
+import { FormattedMessage, useIntl } from 'umi';
 import { query${ClassName}ByPage, remove${ClassName} } from './service';
 import Add${ClassName}Modal from './Add${ClassName}Modal';
 import Update${ClassName}Modal from './Update${ClassName}Modal';
 
 export default function ${ClassName}Query() {
+    const intl = useIntl();
     const actionRef = useRef<ActionType>();
 
     function handleAdd() {
-        modalPopup(<Add${ClassName}Modal />, { title: '新增${comments}' }, autoQuery(actionRef));
+
+        modalPopup(
+            <Add${ClassName}Modal />,
+            { title: intl.formatMessage({ id: '${ClassName}Page.add', defaultMessage: '新增${comments}' }) },
+            autoQuery(actionRef)
+        );
     }
 
     function handleUpdate(record: ${ClassName}) {
-        modalPopup(<Update${ClassName}Modal model={record} />, { title: '修改${comments}' }, autoQuery(actionRef));
+        modalPopup(
+            <Update${ClassName}Modal model={record} />, { title: intl.formatMessage({ id: '${ClassName}Page.update', defaultMessage: '修改${comments}' }) },
+            autoQuery(actionRef)
+        );
     }
 
     function handleRemove(ids: number[]) {
         Modal.confirm({
-            title: '是否删除所选${comments}?',
+            title: intl.formatMessage({ id: '${ClassName}Page.removeTips', defaultMessage: '是否删除所选${comments}?' }),
             onOk: () =>
                 remove${ClassName}(ids).then(() => {
-                    message.success('删除成功!');
+                    message.success(intl.formatMessage({ id: '${ClassName}Page.removeOk', defaultMessage: '删除成功!' }));
                     if (actionRef.current?.clearSelected) {
                         actionRef.current?.clearSelected();
                     }
@@ -40,25 +50,29 @@ export default function ${ClassName}Query() {
 #foreach ($column in $columns)
 #if(!$column.superColumn)
         {
-            title: '$column.columnComment',
+            title: intl.formatMessage({ id: '${ClassName}.$column.javaField', defaultMessage: '$column.columnComment' }),
             dataIndex: '$column.javaField',
         },
 #end
 #end
         {
-            title: '操作',
+            title: intl.formatMessage({ id: 'common.oper', defaultMessage: '操作' }),
             width: '180px',
             dataIndex: 'action',
             search: false,
             render: (_, record) => (
                 <>
                     <HasPermission authority="${moduleName}:${className}:update">
-                        <a onClick={() => handleUpdate(record)}>编辑</a>
+                        <a onClick={() => handleUpdate(record)}>
+                            <FormattedMessage id="common.edit" defaultMessage="编辑" />
+                        </a>
                         <Divider type="vertical" />
                     </HasPermission>
 
                     <HasPermission authority="${moduleName}:${className}:remove">
-                        <a onClick={() => handleRemove([record.${pk.javaField}])}>删除</a>
+                        <a onClick={() => handleRemove([record.${pk.javaField}])}>
+                            <FormattedMessage id="common.delete" defaultMessage="删除" />
+                        </a>
                     </HasPermission>
                 </>
             ),
@@ -68,7 +82,7 @@ export default function ${ClassName}Query() {
     return (
         <PageContainer>
             <SuperTable<${ClassName}>
-                headerTitle="${comments}"
+                headerTitle={<FormattedMessage id="${ClassName}Page.title" defaultMessage="${comments}" />}
                 rowKey="${pk.javaField}"
                 columns={columns}
                 pagination={{ pageSize: 10 }}
@@ -82,7 +96,7 @@ export default function ${ClassName}Query() {
                 toolBarRender={() => [
                     <HasPermission key="add" authority="${moduleName}:${className}:add">
                         <Button type="primary" onClick={handleAdd}>
-                            <PlusOutlined /> 新建
+                            <PlusOutlined /> <FormattedMessage id="common.add" defaultMessage="新建" />
                         </Button>
                     </HasPermission>,
                 ]}

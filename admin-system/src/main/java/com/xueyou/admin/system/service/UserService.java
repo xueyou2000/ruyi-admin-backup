@@ -1,6 +1,7 @@
 package com.xueyou.admin.system.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.xueyou.admin.common.core.exception.user.UserNotExistsException;
 import com.xueyou.admin.common.core.service.BaseService;
 import com.xueyou.admin.system.domain.User;
 
@@ -77,7 +78,7 @@ public interface UserService extends BaseService<User> {
     /**
      * 重置密码
      */
-    boolean restPassword(String userId, String newPassword);
+    boolean restPassword(String userId, String newPassword) throws UserNotExistsException;
 
     /**
      * 更改用户状态

@@ -2,6 +2,8 @@ package com.xueyou.admin.common.core.exception.handler;
 
 import com.xueyou.admin.common.core.exception.auth.ForbiddenException;
 import com.xueyou.admin.common.core.exception.auth.UnauthorizedException;
+import com.xueyou.admin.common.core.exception.base.BusinessException;
+import com.xueyou.admin.common.core.exception.base.BusinessRuntimeException;
 import com.xueyou.admin.common.core.utils.StringUtils;
 import com.xueyou.admin.common.core.vo.Response;
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +41,25 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(RuntimeException.class)
     public Response<?> notFount(RuntimeException e) {
-        log.error("运行时异常:", e);
+        log.error("未知运行时异常", e);
+        return Response.error(999, StringUtils.isBlank(e.getMessage()) ? "未知异常" : e.getMessage());
+    }
+
+    /**
+     *  拦截业务异常
+     */
+    @ExceptionHandler(BusinessException.class)
+    public Response<?> handleException(BusinessException e) {
+        log.error("业务异常", e);
+        return Response.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
+    }
+
+    /**
+     * 拦截业务运行时异常
+     */
+    @ExceptionHandler(BusinessRuntimeException.class)
+    public Response<?> notFount(BusinessRuntimeException e) {
+        log.error("业务运行时异常", e);
         return Response.error(999, StringUtils.isBlank(e.getMessage()) ? "未知异常" : e.getMessage());
     }
 
@@ -51,7 +71,6 @@ public class GlobalExceptionHandler {
         log.error(e.getMessage(), e);
         return Response.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), "服务器错误，请联系管理员");
     }
-
 
     /**
      * 拦截参数异常

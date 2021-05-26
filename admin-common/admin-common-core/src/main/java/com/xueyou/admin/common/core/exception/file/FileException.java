@@ -1,6 +1,7 @@
 package com.xueyou.admin.common.core.exception.file;
 
-import com.xueyou.admin.common.core.exception.base.BaseException;
+import com.xueyou.admin.common.core.exception.base.BusinessException;
+import com.xueyou.admin.common.core.exception.base.BusinessRuntimeException;
 
 /**
  * 文件信息异常类
@@ -9,7 +10,7 @@ import com.xueyou.admin.common.core.exception.base.BaseException;
  * @version V1.0.0
  * @since 2020/9/30 9:21 上午
  */
-public class FileException extends BaseException {
+public class FileException extends BusinessException {
 
     private static final long serialVersionUID = 1L;
 

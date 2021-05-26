@@ -23,7 +23,7 @@ public class DictType extends BaseEntity {
     /**
      * 字典主键
      */
-    @TableId(type = IdType.ASSIGN_ID)
+    @TableId(type = IdType.AUTO)
     private Long dictId;
 
     /**

@@ -8,6 +8,7 @@ import com.xueyou.admin.common.core.annotation.LoginUser;
 import com.xueyou.admin.common.core.constant.UserConstants;
 import com.xueyou.admin.common.core.controller.BaseController;
 import com.xueyou.admin.common.core.enums.TrueOrFalse;
+import com.xueyou.admin.common.core.exception.user.UserNotExistsException;
 import com.xueyou.admin.common.core.utils.RandomUtils;
 import com.xueyou.admin.common.core.utils.StringUtils;
 import com.xueyou.admin.common.core.utils.spring.ServletUtils;
@@ -143,7 +144,7 @@ public class UserController extends BaseController {
     @HasPermissions("system:user:resetPwd")
     @OperLog(title = "重置密码", businessType = BusinessType.UPDATE)
     @PostMapping("/resetPwd")
-    public Response<Boolean> resetPwdSave(@RequestParam String userId, @RequestParam String newPassword) {
+    public Response<Boolean> resetPwdSave(@RequestParam String userId, @RequestParam String newPassword) throws UserNotExistsException {
         return Response.ok(userService.restPassword(userId, newPassword));
     }
 
