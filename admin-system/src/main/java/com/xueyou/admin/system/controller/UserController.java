@@ -122,7 +122,7 @@ public class UserController extends BaseController {
         }
         user.setUpdateBy(UserUtils.getUserName());
         user.setUpdateTime(LocalDateTime.now());
-        user.setAdmin(TrueOrFalse.FALSE);
+        user.setAdmin(oldUser.getAdmin());
         return Response.ok(userService.updateUser(user));
     }
 
