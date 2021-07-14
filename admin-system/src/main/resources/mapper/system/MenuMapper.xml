@@ -49,6 +49,7 @@
           and m.menu_type in ('M', 'C')
           and role.status = 0
           and length(m.menu_key) > 0
+        group by m.menu_key, m.order_num
         order by m.order_num
     </select>
 
